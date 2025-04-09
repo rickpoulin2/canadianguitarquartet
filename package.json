@@ -1,0 +1,66 @@
+{
+  "name": "videogamecomposer",
+  "description": "Videogamecomposer francoisgerinlajoie.ca",
+  "private": true,
+  "version": "0.0.1",
+  "author": "Rick <rickpoulin2@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/rickpoulin2/videogamecomposer/issues"
+  },
+  "dependencies": {
+    "@contentful/rich-text-plain-text-renderer": "^15.12.1",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "gatsby": "^5.0.0",
+    "gatsby-plugin-google-gtag": "^5.14.0",
+    "gatsby-plugin-image": "^3.0.0-next",
+    "gatsby-plugin-react-helmet": "^5.0.0",
+    "gatsby-plugin-recaptcha": "^1.0.5",
+    "gatsby-plugin-sass": "^6.14.0",
+    "gatsby-plugin-sharp": "^5.15.0-next.0",
+    "gatsby-source-contentful": "^8",
+    "gatsby-transformer-sharp": "^5.15.0-next.0",
+    "gh-pages": "^5.0.0",
+    "lodash": "^4.17.21",
+    "react": "^18.0.0",
+    "react-bootstrap": "^2.10.7",
+    "react-dom": "^18.0.0",
+    "react-recaptcha": "^2.3.10",
+    "react-scrollspy": "^3.4.3",
+    "reading-time": "^2.0.0-1",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "contentful-import": "^8.3.2",
+    "gatsby-plugin-schema-export": "^1.1.33",
+    "gatsby-provision-contentful": "^0.0.5",
+    "netlify-cli": "^17.38.1",
+    "sass": "^1.83.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "homepage": "https://github.com/rickpoulin2/videogamecomposer",
+  "keywords": [
+    "gatsby",
+    "contentful",
+    "starter"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickpoulin2/videogamecomposer"
+  },
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "heroku-postbuild": "gatsby build",
+    "serve": "gatsby serve",
+    "setup": "node ./bin/setup.js",
+    "netlify:login": "netlify login",
+    "netlify:deploy": "netlify deploy -d public -p",
+    "gatsby-provision": "gatsby-provision-contentful --contentful-data-path='./contentful/export.json' --space-id=$CONTENTFUL_SPACE_ID --management-token=$CONTENTFUL_MANAGEMENT_TOKEN",
+    "export-schema": "npx contentful-cli space export --skip-content --content-file contentful-schema.json"
+  }
+}

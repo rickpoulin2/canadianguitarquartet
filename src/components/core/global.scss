@@ -1,0 +1,134 @@
+em {
+    color: var(--bs-tertiary);
+    font-weight: 500;
+}
+
+li::marker {
+    color: var(--bs-secondary);
+}
+
+.text-bg-primary,
+.text-bg-secondary,
+.text-bg-tertiary {
+    li::marker {
+        color: white;
+    }
+}
+
+.active>.page-link {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.badge.text-bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.badge.text-bg-secondary {
+    background-color: var(--bs-secondary) !important;
+}
+
+.badge.text-bg-tertiary {
+    background-color: var(--bs-tertiary) !important;
+}
+
+.text-bg-primary {
+    border-color: var(--bs-primary) !important;
+    background-color: var(--bs-primary) !important;
+    color: white;
+}
+
+.text-bg-secondary {
+    border-color: var(--bs-secondary) !important;
+    background-color: var(--bs-secondary) !important;
+    color: white;
+}
+
+.text-bg-tertiary {
+    border-color: var(--bs-tertiary) !important;
+    background-color: var(--bs-tertiary) !important;
+    color: white;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--bs-hover);
+    --bs-btn-hover-border-color: var(--bs-hover);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--bs-hover);
+    --bs-btn-hover-border-color: var(--bs-hover);
+}
+
+.btn-secondary {
+    --bs-btn-bg: var(--bs-secondary);
+    --bs-btn-border-color: var(--bs-secondary);
+    --bs-btn-hover-bg: var(--bs-hover);
+    --bs-btn-hover-border-color: var(--bs-hover);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: var(--bs-secondary);
+    --bs-btn-border-color: var(--bs-secondary);
+    --bs-btn-hover-bg: var(--bs-hover);
+    --bs-btn-hover-border-color: var(--bs-hover);
+}
+
+.btn-light {
+    --bs-btn-bg: var(--bs-light);
+    --bs-btn-border-color: var(--bs-light);
+}
+
+a {
+    color: var(--bs-primary);
+}
+
+a:hover {
+    color: var(--bs-hover);
+}
+
+.text-bg-secondary {
+    a {
+        color: white;
+    }
+
+    a:hover {
+        color: var(--bs-light);
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5 {
+    /* Fondamento / Montserrat / "Afacad Flux" */
+    font-family: "Afacad Flux", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin-bottom: 0.8em;
+}
+
+h3,
+h4,
+h5 {
+    color: var(--bs-tertiary);
+}

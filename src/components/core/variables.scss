@@ -1,0 +1,25 @@
+/* https://coolors.co/0d1b2a-1b263b-323846-4e6e58-f5e2c8-fffffa */
+
+:root,
+[data-bs-theme="light"] {
+    --bs-primary: #1B263B;
+    --bs-primary-rgb: 27, 38, 59;
+    --bs-hover: #405b8c;
+    --bs-secondary: #4E6E58;
+    --bs-secondary-rgb: 70, 110, 88;
+    --bs-tertiary: #323846;
+    --bs-tertiary-rgb: 50, 56, 70;
+
+    --bs-highlights: #8892AA;
+    --bs-light: #F5E2C8;
+    --bs-light-rgb: 245, 226, 200;
+    --bs-background: #FFFFFA;
+
+    --bs-border: #031d44;
+    --bs-border-radius: 0;
+
+    --bs-link-color: var(--bs-primary);
+    --bs-link-hover-color: var(--bs-hover);
+    --bs-secondary-bg: var(--bs-light);
+    --bs-border-color: var(--bs-highlights);
+}
