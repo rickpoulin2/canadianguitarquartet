@@ -60,8 +60,8 @@ li::marker {
 .btn-outline-primary {
     --bs-btn-color: var(--bs-primary);
     --bs-btn-border-color: var(--bs-primary);
-    --bs-btn-hover-bg: var(--bs-hover);
-    --bs-btn-hover-border-color: var(--bs-hover);
+    --bs-btn-hover-bg: var(--bs-primary);
+    --bs-btn-hover-border-color: var(--bs-primary);
 }
 
 .btn-secondary {
@@ -74,8 +74,8 @@ li::marker {
 .btn-outline-secondary {
     --bs-btn-color: var(--bs-secondary);
     --bs-btn-border-color: var(--bs-secondary);
-    --bs-btn-hover-bg: var(--bs-hover);
-    --bs-btn-hover-border-color: var(--bs-hover);
+    --bs-btn-hover-bg: var(--bs-secondary);
+    --bs-btn-hover-border-color: var(--bs-secondary);
 }
 
 .btn-light {
@@ -131,4 +131,35 @@ h3,
 h4,
 h5 {
     color: var(--bs-tertiary);
+}
+
+html,
+body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--bs-background);
+}
+
+svg g#cgq-logo {
+    path {
+        stroke: currentColor;
+        stroke-width: 4;
+        fill: transparent;
+    }
+
+    circle,
+    text {
+        fill: currentColor;
+    }
+
+    text {
+        font-family: "Afacad Flux";
+        font-weight: bold;
+        font-size: 34px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
 }
