@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 
 const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
-  const { allContentfulSiteGlobals } = useStaticQuery(
+  /*const { allContentfulSiteGlobals } = useStaticQuery(
     graphql`
   query metaQuery {
     allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
@@ -14,24 +14,21 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
         siteIcon {
           gatsbyImageData(layout:FIXED)
         }
-        siteBackground {
-          gatsbyImageData(layout:FIXED)
-        }
       }
     }
   }`
-  )
+  )*/
+  const allContentfulSiteGlobals = {};
   const siteData = get(allContentfulSiteGlobals, 'nodes[0]');
-  let siteTitle = siteData.siteTitle;
+  let siteTitle = siteData?.siteTitle;
   if (title) {
     siteTitle = `${title} | ` + siteTitle;
   }
-  const image = getSrc(siteData.siteIcon);
+  const image = getSrc(siteData?.siteIcon);
 
   return (
     <>
       <html lang={lang} />
-      <body style={{ backgroundImage: `url(${getSrc(siteData.siteBackground)})` }} />
       <title>{siteTitle}</title>
       <meta name="description" content={description} />
       <meta name="image" content={image} />

@@ -34,15 +34,19 @@ const Layout = (props) => {
           buildTime
         }
       }`)
-  const siteData = allContentfulSiteGlobals?.nodes[0];
+  //const siteData = allContentfulSiteGlobals?.nodes[0];
+  const siteData = {
+    siteHeading: "Canadian Guitar Quartet",
+    langLinkText: "Français",
+    copyrightLine: "©2025 Canadian Guitar Quartet"
+  }
 
   return (
     <>
       <Header navItems={siteData?.headerNavigation}
         siteLogo={siteData?.siteLogo}
-        siteHeadingStart={siteData?.siteHeadingStart}
-        siteHeadingEnd={siteData?.siteHeadingEnd}
-        buttonLink={siteData?.headerButtonLink} />
+        siteHeading={siteData?.siteHeading}
+        langLinkText={siteData?.langLinkText} />
       <main>{children}</main>
       <Footer copyrightLine={siteData?.copyrightLine}
         content={siteData?.footerContent}

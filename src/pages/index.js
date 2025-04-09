@@ -41,7 +41,7 @@ class PageTemplate extends React.Component {
 
 export default PageTemplate
 
-//import const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
+export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
 
 /*
 export const pageQuery = graphql`

@@ -6,7 +6,7 @@ import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap';
 
 import './header.scss'
 
-const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems = [], buttonLink }) => {
+const Header = ({ siteLogo, siteHeading = "", navItems = [], langLinkText }) => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -54,26 +54,26 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
                   <path d="M 255 95 H 300" />
                 </g>
               </svg>
-              <p class="visually-hidden">Canadian Guitar Quartet</p>
+              <p class="visually-hidden">{siteHeading}</p>
             </Link>
           </Navbar.Brand>
           <div className="desktop-nav">
             {headerNav}
             <div class="navbar-lang">
-              <a href="#" class="btn btn-outline-light">Français</a>
+              <a href="#" class="btn btn-outline-light">{langLinkText}</a>
             </div>
           </div>
           <Navbar.Toggle aria-controls="mobilenav" onClick={handleShow} />
           <Offcanvas id="mobilenav" show={show} onHide={handleClose} placement="end" aria-labelledby="mobilenav-heading">
             <Offcanvas.Header closeButton="true" closeVariant="white">
               <Link to="/" className="site-heading">
-                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">Canadian Guitar Quartet</Offcanvas.Title>
+                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">{siteHeading}</Offcanvas.Title>
               </Link>
             </Offcanvas.Header>
             <Offcanvas.Body>
               {headerNav}
               <div class="navbar-lang">
-                <a href="#" class="btn btn-outline-primary">Français</a>
+                <a href="#" class="btn btn-outline-primary">{langLinkText}</a>
               </div>
             </Offcanvas.Body>
           </Offcanvas>
