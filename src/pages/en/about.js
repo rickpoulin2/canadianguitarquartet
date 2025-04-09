@@ -2,15 +2,18 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
 
-import AppContext from '../components/core/app-context'
-import Seo from '../components/core/seo'
-//import PageTitle from '../components/page-title'
+import AppContext from '/src/components/core/app-context'
+import Seo from '/src/components/core/seo'
+import PageTitle from '/src/components/core/page-title'
 //import PageComponent from '../components/page-component'
 //import Section from '../components/section'
 
 class PageTemplate extends React.Component {
   render() {
-    return <div>hello</div>
+    return (
+      <AppContext.Provider value={this.props.pageContext}>
+        <PageTitle title="About" />
+      </AppContext.Provider>)
   }
   /*
   

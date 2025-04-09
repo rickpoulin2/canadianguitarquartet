@@ -13,6 +13,6 @@
 
 [[redirects]]
   from = "/"
-  to = "/home/"
+  to = "/en/home/"
   status = 301
   force = true
