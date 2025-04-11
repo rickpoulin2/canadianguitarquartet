@@ -7,7 +7,11 @@ const Seo = ({ children, lang = 'en', title, description = '', siteData }) => {
   if (title) {
     siteTitle = `${title} | ` + siteTitle;
   }
-  const image = getSrc(siteData?.siteIcon);
+
+  let image = getSrc(siteData?.siteIcon);
+  if (image == null) {
+    image = siteData?.siteIcon?.file.url;
+  }
 
   return (
     <>
@@ -40,6 +44,9 @@ export const query = graphql`
     siteTitle
     siteIcon {
       gatsbyImageData(layout:FIXED)
+      file {
+        url
+      }
     }
   }
 `

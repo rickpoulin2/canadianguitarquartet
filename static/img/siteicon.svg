@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110">
+    <style>
+        rect { fill: white; }
+        path { stroke: #000; stroke-width: 6; fill: transparent; }
+    </style>
+    <rect x="2" y="2" width="106" height="106" rx="15" ry="15" />
+
+    <path d="M 30 7 V 38" />
+    <path d="M 25 83 H 37" />
+    <path d="M 16 67 A 12 12 0 0 1 23 46" />
+    <path d="M 45 67 A 22 22 0 0 1 31 104" />
+    <circle cx="30" cy="59" r="4" />
+
+    <path d="M 55 25 H 100" />
+    <path d="M 65 55 H 100" />
+    <path d="M 70 85 H 100" />
+</svg>
