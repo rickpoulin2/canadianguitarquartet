@@ -37,6 +37,7 @@ header {
 
     .navbar-nav {
         justify-content: end;
+        --bs-navbar-nav-link-padding-x: 1em;
 
         .nav-link {
             color: white;

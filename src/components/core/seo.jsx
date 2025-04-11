@@ -1,25 +1,8 @@
 import * as React from 'react'
-import get from 'lodash/get'
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 
-const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
-  /*const { allContentfulSiteGlobals } = useStaticQuery(
-    graphql`
-  query metaQuery {
-    allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
-      nodes {
-        __typename
-        siteTitle
-        siteIcon {
-          gatsbyImageData(layout:FIXED)
-        }
-      }
-    }
-  }`
-  )*/
-  const allContentfulSiteGlobals = {};
-  const siteData = get(allContentfulSiteGlobals, 'nodes[0]');
+const Seo = ({ children, lang = 'en', title, description = '', siteData }) => {
   let siteTitle = siteData?.siteTitle;
   if (title) {
     siteTitle = `${title} | ` + siteTitle;
@@ -52,3 +35,11 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
 
 export default Seo
 
+export const query = graphql`
+  fragment Seo on ContentfulSiteGlobals {
+    siteTitle
+    siteIcon {
+      gatsbyImageData(layout:FIXED)
+    }
+  }
+`

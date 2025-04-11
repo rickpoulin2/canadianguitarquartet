@@ -6,11 +6,9 @@ const Section = ({ as = "section", id, styles, children }) => {
   return (
     <Tag id={id} className={styles}>
       <Container>
-        <div>
-          <Row>
-            {children}
-          </Row>
-        </div>
+        <Row>
+          {children}
+        </Row>
       </Container>
     </Tag>)
 }

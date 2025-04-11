@@ -1,24 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Container, Row, Col } from 'react-bootstrap'
-//import MyLink from './mylink'
+import MyLink from '../page/mylink'
 //import RichText from './richtext'
 
 import './footer.scss'
 
-const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
-  /*const navData = navItems?.map((i) =>
-    <li key={i.id}></li>
-  );*/
-  const navData = (<>
-    <li><a class="nav-link" target="_blank" href="https://www.facebook.com/cgqguitar" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-    <li><a class="nav-link" target="_blank" href="https://www.youtube.com/@cgqguitar" title="YouTube"><i class="fab fa-youtube"></i></a></li>
-    <li><a class="nav-link" target="_blank" href="https://open.spotify.com/artist/227hOhA544j4C73lUdyboz" title="Spotify"><i class="fab fa-spotify"></i></a>
-    </li>
-    <li><a class="nav-link" target="_blank" href="https://soundcloud.com/canadian-guitar-quartet" title="Soundcloud"><i class="fab fa-soundcloud"></i></a>
-    </li>
-    <li><a class="nav-link" target="_blank" href="https://music.apple.com/ca/artist/canadian-guitar-quartet/548113628" title="Apple Music"><i
-      class="fab fa-apple"></i></a></li></>)
+const Footer = ({ siteData, content, buildTime }) => {
+  const navData = siteData?.footerNavigation?.map((i) =>
+    <li key={i.id}><MyLink obj={i} addClasses="nav-link" /></li>
+  )
 
   return (
     <footer>
@@ -26,7 +17,7 @@ const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
         <Container>
           <Row>
             <Col xs="12" md="7">
-              <p className="footer-copyright">{copyrightLine}</p>
+              <p className="footer-copyright">{siteData?.copyrightLine}</p>
               <p>Web design by Rick Poulin.</p>
             </Col>
 
@@ -47,9 +38,14 @@ const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
 
 export default Footer
 
-/*
 export const query = graphql`
   fragment Footer on ContentfulSiteGlobals {
+    copyrightLine
+    footerContent {
+      ... RichText
+    }
+    footerNavigation {
+      ... MyLink
+    }
   }
 `
-*/

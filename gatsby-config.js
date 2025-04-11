@@ -40,7 +40,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-google-gtag",
       options: {
-        trackingIds: ["G-FBH76BETL3"],
+        trackingIds: ["ASDF"],
       },
     },
     "gatsby-plugin-schema-export",

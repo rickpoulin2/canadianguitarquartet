@@ -9,24 +9,7 @@ import Header from './header'
 import Footer from './footer'
 
 const Layout = (props) => {
-  const { children } = props
-  /*
-  const { allContentfulSiteGlobals, siteBuildMetadata } = useStaticQuery(
-    graphql`
-      query SiteGlobalsQuery {
-        allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
-          nodes {
-            ... Header
-            ... Footer
-          }
-        }
-        siteBuildMetadata {
-          buildTime
-        }
-      }`)
-      */
-
-  const allContentfulSiteGlobals = null;
+  const { children, data } = props
   const { siteBuildMetadata } = useStaticQuery(
     graphql`
       query SiteGlobalsQuery {
@@ -34,23 +17,13 @@ const Layout = (props) => {
           buildTime
         }
       }`)
-  //const siteData = allContentfulSiteGlobals?.nodes[0];
-  const siteData = {
-    siteHeading: "Canadian Guitar Quartet",
-    langLinkText: "Français",
-    copyrightLine: "©2025 Canadian Guitar Quartet"
-  }
+  const siteData = data?.siteData?.nodes[0];
 
   return (
     <>
-      <Header navItems={siteData?.headerNavigation}
-        siteLogo={siteData?.siteLogo}
-        siteHeading={siteData?.siteHeading}
-        langLinkText={siteData?.langLinkText} />
+      <Header siteData={siteData} altPage={props.pageContext.altSlug} />
       <main>{children}</main>
-      <Footer copyrightLine={siteData?.copyrightLine}
-        content={siteData?.footerContent}
-        navItems={siteData?.footerNavigation}
+      <Footer siteData={siteData}
         buildTime={siteBuildMetadata.buildTime} />
       <script src="/js/bootstrap.min.js"></script>
     </>
@@ -58,3 +31,10 @@ const Layout = (props) => {
 }
 
 export default Layout
+
+export const query = graphql`
+  fragment Layout on ContentfulSiteGlobals {
+    ... Header
+    ... Footer
+  }
+`

@@ -2,26 +2,19 @@ import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap';
-//import MyLink from './mylink'
+import MyLink from '../page/mylink'
 
 import './header.scss'
 
-const Header = ({ siteLogo, siteHeading = "", navItems = [], langLinkText }) => {
+const Header = ({ siteData, altPage }) => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  /*const navData = navItems?.map((i) =>
-    <li className="nav-item" key={i.id}></li>
-  )*/
-  const navData = (<>
-    <li class="nav-item"><a href="home.html" class="nav-link px-3">Home</a></li>
-    <li class="nav-item"><a href="about.html" class="nav-link px-3 active">About</a></li>
-    <li class="nav-item"><a href="events.html" class="nav-link px-3">Events</a></li>
-    <li class="nav-item"><a href="presskit.html" class="nav-link px-3">Press Kit</a></li>
-    <li class="nav-item"><a href="updates.html" class="nav-link px-3">Updates</a></li>
-    <li class="nav-item"><a href="contact.html" class="nav-link px-3">Contact</a></li>
-  </>)
+  const homeLink = `/${siteData?.node_locale}/`
+  const navData = siteData?.headerNavigation?.map((i) =>
+    <li className="nav-item" key={i.id}><MyLink obj={i} addClasses="nav-link" activeClass="active" onClick={handleClose} /></li>
+  )
   const headerNav = (
     <>
       <Col as="nav" lg="">
@@ -37,7 +30,7 @@ const Header = ({ siteLogo, siteHeading = "", navItems = [], langLinkText }) => 
       <Navbar variant="dark" expand="lg">
         <Container fluid="lg">
           <Navbar.Brand as="div">
-            <Link to="/" className="site-heading" id="top-of-page">
+            <Link to={homeLink} className="site-heading" id="top-of-page">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 110">
                 <g id="cgq-logo">
                   <path d="M 23 5 V 31" />
@@ -54,26 +47,26 @@ const Header = ({ siteLogo, siteHeading = "", navItems = [], langLinkText }) => 
                   <path d="M 255 95 H 300" />
                 </g>
               </svg>
-              <p class="visually-hidden">{siteHeading}</p>
+              <p className="visually-hidden">{siteData?.siteTitle}</p>
             </Link>
           </Navbar.Brand>
           <div className="desktop-nav">
             {headerNav}
-            <div class="navbar-lang">
-              <a href="#" class="btn btn-outline-light">{langLinkText}</a>
+            <div className="navbar-lang">
+              <Link to={altPage} className="btn btn-outline-light">{siteData?.languageToggleText}</Link>
             </div>
           </div>
           <Navbar.Toggle aria-controls="mobilenav" onClick={handleShow} />
           <Offcanvas id="mobilenav" show={show} onHide={handleClose} placement="end" aria-labelledby="mobilenav-heading">
             <Offcanvas.Header closeButton="true" closeVariant="white">
-              <Link to="/" className="site-heading">
-                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">{siteHeading}</Offcanvas.Title>
+              <Link to={homeLink} className="site-heading">
+                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">{siteData?.siteTitle}</Offcanvas.Title>
               </Link>
             </Offcanvas.Header>
             <Offcanvas.Body>
               {headerNav}
-              <div class="navbar-lang">
-                <a href="#" class="btn btn-outline-primary">{langLinkText}</a>
+              <div className="navbar-lang">
+                <Link to={altPage} className="btn btn-outline-primary">{siteData?.languageToggleText}</Link>
               </div>
             </Offcanvas.Body>
           </Offcanvas>
@@ -85,9 +78,16 @@ const Header = ({ siteLogo, siteHeading = "", navItems = [], langLinkText }) => 
 
 export default Header
 
-/*
 export const query = graphql`
   fragment Header on ContentfulSiteGlobals {
+    node_locale
+    siteTitle
+    siteLogo {
+      gatsbyImageData(layout:FIXED)
+    }
+    languageToggleText
+    headerNavigation {
+      ... MyLink
+    }
   }
 `
-*/
