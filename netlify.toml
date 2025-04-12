@@ -16,3 +16,15 @@
   to = "/en/home/"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/en/"
+  to = "/en/home/"
+  status = 302
+  force = true
+  
+[[redirects]]
+  from = "/fr/"
+  to = "/fr/accueil/"
+  status = 302
+  force = true

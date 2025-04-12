@@ -18,6 +18,7 @@
     "gatsby-plugin-sass": "^6.14.0",
     "gatsby-plugin-sharp": "^5.15.0-next.0",
     "gatsby-source-contentful": "^8",
+    "gatsby-transformer-inline-svg": "^1.2.0",
     "gatsby-transformer-sharp": "^5.15.0-next.0",
     "gh-pages": "^5.0.0",
     "lodash": "^4.17.21",

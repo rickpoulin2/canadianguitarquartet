@@ -43,6 +43,7 @@ module.exports = {
         trackingIds: ["ASDF"],
       },
     },
+    "gatsby-transformer-inline-svg",
     "gatsby-plugin-schema-export",
     {
       resolve: "gatsby-source-contentful",

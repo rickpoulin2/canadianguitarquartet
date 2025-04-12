@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Container, Row, Col } from 'react-bootstrap'
 import MyLink from '../page/mylink'
-//import RichText from './richtext'
+import RichText from '../page/richtext'
 
 import './footer.scss'
 
@@ -18,7 +18,7 @@ const Footer = ({ siteData, content, buildTime }) => {
           <Row>
             <Col xs="12" md="7">
               <p className="footer-copyright">{siteData?.copyrightLine}</p>
-              <p>Web design by Rick Poulin.</p>
+              <RichText data={siteData?.footerContent} />
             </Col>
 
             <Col as="nav" xs="12" md="5">

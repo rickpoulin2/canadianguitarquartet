@@ -25,28 +25,20 @@ const Header = ({ siteData, altPage }) => {
     </>
   )
 
+  let siteLogo = ""
+  if (siteData?.siteLogo?.gatsbyImageData) {
+    siteLogo = <GatsbyImage image={siteData.siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
+  } else if (siteData?.siteLogo?.svg?.originalContent) {
+    siteLogo = <div id="cgq-logo" dangerouslySetInnerHTML={{ __html: siteData.siteLogo.svg.originalContent }}></div>
+  }
+
   return (
     <header>
       <Navbar variant="dark" expand="lg">
         <Container fluid="lg">
           <Navbar.Brand as="div">
             <Link to={homeLink} className="site-heading" id="top-of-page">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 110">
-                <g id="cgq-logo">
-                  <path d="M 23 5 V 31" />
-                  <path d="M 16 81 H 30" />
-                  <path d="M 9 65 A 12 12 0 0 1 16 44" />
-                  <path d="M 38 65 A 22 22 0 0 1 24 102" />
-                  <circle cx="23" cy="57" r="3" />
-
-                  <text x="85" y="25">Canadian</text>
-                  <path d="M 280 15 H 300" />
-                  <text x="85" y="65">Guitar</text>
-                  <path d="M 230 55 H 300" />
-                  <text x="85" y="105">Quartet</text>
-                  <path d="M 255 95 H 300" />
-                </g>
-              </svg>
+              {siteLogo}
               <p className="visually-hidden">{siteData?.siteTitle}</p>
             </Link>
           </Navbar.Brand>
@@ -84,6 +76,9 @@ export const query = graphql`
     siteTitle
     siteLogo {
       gatsbyImageData(layout:FIXED)
+      svg {
+        originalContent
+      }
     }
     languageToggleText
     headerNavigation {
