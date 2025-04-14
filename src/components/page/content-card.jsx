@@ -15,7 +15,7 @@ const ContentCard = ({ obj }) => {
 
   const styles = "cmp content-card " + (obj.styles ? obj.styles : "")
   const heading = obj.fancyHeading ? <h2 className="bar"><span>{obj.fancyHeading}</span></h2> : ""
-  const image = obj.image?.gatsbyImageData ? <GatsbyImage image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
+  const image = obj.image?.gatsbyImageData ? <GatsbyImage className="img-fluid" image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
   const cardClass = obj.cardType === "no-border" ? obj.cardType : "text-bg-" + obj.cardType
   const buttonClass = "btn btn-lg btn-outline-" + (obj.cardType === "tertiary" || obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
@@ -23,15 +23,27 @@ const ContentCard = ({ obj }) => {
   });
 
   if (image) {
+    // default == square
+    let imgSize = { sm: 4 }
+    let txtSize = { sm: 8 }
+    if (obj.imageSizing === "landscape") {
+      imgSize = { lg: 4 }
+      txtSize = { lg: 8 }
+    }
+    if (obj.imageSizing === "portrait") {
+      imgSize = { sm: 4, md: 3 }
+      txtSize = { sm: 8, md: 9 }
+    }
+
     return (
       <div className={styles}>
         <Card className={cardClass}>
           <Card.Body>
             <Row>
-              <Col sm="4">
+              <Col {...imgSize}>
                 {image}
               </Col>
-              <Col sm="8">
+              <Col {...txtSize}>
                 {heading}
                 <RichText data={obj.content} />
                 {buttons}
@@ -65,8 +77,9 @@ export const query = graphql`
     fancyHeading
     image {
       description
-      gatsbyImageData(width:550)
+      gatsbyImageData(width:750)
     }
+    imageSizing
     content {
       ...RichText
     }

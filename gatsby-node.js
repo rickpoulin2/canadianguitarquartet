@@ -31,6 +31,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     fancyHeading: String
     cardType: String
     image: ContentfulAsset @link(from: "image___NODE")
+    imageSizing: String
     content: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
