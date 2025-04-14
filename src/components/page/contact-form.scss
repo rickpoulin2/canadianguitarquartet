@@ -1,0 +1,33 @@
+.contact-form {
+    margin-bottom: 2em;
+
+    .card {
+        --bs-card-border-color: var(--bs-secondary);
+        --bs-card-border-width: 5px;
+    }
+
+    .card-header h2 {
+        margin: 0;
+    }
+
+    .intro {
+        margin-bottom: 1em;
+        color: var(--bs-secondary);
+    }
+
+    .btn {
+        margin-top: 2em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 .25rem rgba(var(--bs-secondary-rgb), 0.3);
+        border-color: var(--bs-secondary);
+    }
+
+}

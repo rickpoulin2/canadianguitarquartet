@@ -8,7 +8,7 @@ import ContentCard from './content-card'
 //import BlogEntries from './blog-entry'
 //import BlogLatest from './blog-latest'
 import ComponentGroup from './component-group'
-//import ContactForm from './contact-form'
+import ContactForm from './contact-form'
 //import CommissionCard from './commission-card'
 
 const PageComponent = ({ obj }) => {
@@ -18,6 +18,8 @@ const PageComponent = ({ obj }) => {
         return <ComponentGroup obj={obj} />
     if (type === 'ContentfulBlockContentCard')
         return <ContentCard obj={obj} />
+    if (type === 'ContentfulBlockContactForm')
+        return <ContactForm obj={obj} />
 
     /*
     if (type === 'ContentfulComponentHero')
@@ -40,14 +42,12 @@ const PageComponent = ({ obj }) => {
         return <NewsletterList obj={obj} />
     if (type === 'ContentfulComponentNewsletterSignup')
         return <NewsletterSignup obj={obj} />
-    if (type === 'ContentfulComponentContactForm')
-        return <ContactForm obj={obj} />
     if (type === 'ContentfulComponentCommissionCard')
         return <CommissionCard obj={obj} />
     */
 
-    console.log("unknown component: " + type);
-    return <div>unknown component: {type}</div>
+    console.log("unknown block: " + type);
+    return <div className="col-12 card text-bg-danger">unknown block: {type}</div>
 }
 
 export default PageComponent
@@ -57,5 +57,6 @@ export const query = graphql`
         __typename
         id
         ...ContentfulBlockContentCard
+        ...ContentfulBlockContactForm
     }
 `

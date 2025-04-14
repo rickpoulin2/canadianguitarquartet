@@ -35,6 +35,15 @@ exports.createSchemaCustomization = ({ actions }) => {
     content: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulBlockContactForm implements ContentfulEntry {
+    styles: String
+    introContent: RichText
+    submitButtonLabel: String
+    successHeading: String
+    successBody: RichText
+    errorHeading: String
+    errorBody: RichText
+  }
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     headerNavigation: [ContentfulLink] @link(from: "headerNavigation___NODE")
@@ -46,7 +55,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     copyrightLine: String
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockContactForm
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -198,17 +207,5 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     heading: String
     styles: String
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentContactForm implements ContentfulEntry {
-    heading: String
-    styles: String
-    introContent: RichText
-    availableTopics: [String!]
-    showNewsletterSignup: Boolean
-    submitButtonLabel: String
-    successHeading: String
-    successBody: RichText
-    errorHeading: String
-    errorBody: RichText
   }
 */
