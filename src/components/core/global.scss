@@ -172,3 +172,54 @@ body {
 .cmp {
     margin-bottom: 2em;
 }
+
+.bar {
+    position: relative;
+
+    span {
+        display: inline-block;
+        background-color: white;
+        padding-right: 0.3em;
+        position: relative;
+    }
+
+    &::before {
+        content: '';
+        border-top: 2px solid black;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+    }
+}
+
+.text-bg-primary .bar {
+    span {
+        background-color: var(--bs-primary);
+    }
+
+    &::before {
+        border-color: white;
+    }
+}
+
+.text-bg-secondary .bar {
+    span {
+        background-color: var(--bs-secondary);
+    }
+
+    &::before {
+        border-color: white;
+    }
+}
+
+.text-bg-tertiary .bar {
+    span {
+        background-color: var(--bs-tertiary);
+    }
+
+    &::before {
+        border-color: white;
+    }
+}

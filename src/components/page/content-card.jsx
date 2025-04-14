@@ -14,9 +14,9 @@ const ContentCard = ({ obj }) => {
     return
 
   const styles = "cmp content-card " + (obj.styles ? obj.styles : "")
-  const heading = obj.fancyHeading ? <h2 className="pix"><span>{obj.fancyHeading}</span></h2> : ""
+  const heading = obj.fancyHeading ? <h2 className="bar"><span>{obj.fancyHeading}</span></h2> : ""
   const image = obj.image?.gatsbyImageData ? <GatsbyImage image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
-  const cardClass = "text-bg-" + obj.cardType
+  const cardClass = obj.cardType === "no-border" ? obj.cardType : "text-bg-" + obj.cardType
   const buttonClass = "btn btn-lg btn-outline-" + (obj.cardType === "tertiary" || obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
     return <MyLink key={btn.id} obj={btn} addClasses={buttonClass} />
@@ -27,12 +27,12 @@ const ContentCard = ({ obj }) => {
       <div className={styles}>
         <Card className={cardClass}>
           <Card.Body>
-            {heading}
             <Row>
-              <Col xs="4" lg={{ span: 3, offset: 1 }} xl="2">
+              <Col sm="4">
                 {image}
               </Col>
-              <Col xs="8">
+              <Col sm="8">
+                {heading}
                 <RichText data={obj.content} />
                 {buttons}
               </Col>
@@ -59,13 +59,13 @@ const ContentCard = ({ obj }) => {
 export default ContentCard
 
 export const query = graphql`
-  fragment ContentfulComponentContentCard on ContentfulComponentContentCard {
+  fragment ContentfulBlockContentCard on ContentfulBlockContentCard {
     styles
     cardType
     fancyHeading
     image {
       description
-      gatsbyImageData(width:450)
+      gatsbyImageData(width:550)
     }
     content {
       ...RichText

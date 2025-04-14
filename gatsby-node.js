@@ -21,12 +21,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     content: RichText!
   }
-  type ContentfulComponentText implements ContentfulEntry {
+  type ContentfulBlockGroup implements ContentfulEntry {
     styles: String
-    fancyHeading: String
-    dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
-    image: ContentfulAsset @link(from: "image___NODE")
-    content: RichText
+    structureType: String
+    content: [ContentfulPageContent] @link(from: "content___NODE")
   }
   type ContentfulBlockContentCard implements ContentfulEntry {
     styles: String
@@ -35,90 +33,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     image: ContentfulAsset @link(from: "image___NODE")
     content: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentHero implements ContentfulEntry {
-    heading: String
-    styles: String
-    body: RichText
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-    portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
-  }
-  type ContentfulComponentVideo implements ContentfulEntry {
-    title: String!
-    styles: String
-    cardType: String
-    videoId: String
-    backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
-  }
-  type ContentfulComponentButtonBanner implements ContentfulEntry {
-    title: String!
-    subtext: String
-    styles: String
-    cardType: String
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentAlbumList implements ContentfulEntry {
-    id: ID!
-    styles: String
-  }
-  type ContentfulComponentNewsletterList implements ContentfulEntry {
-    id: ID!
-    styles: String
-  }
-  type ContentfulComponentBlogEntries implements ContentfulEntry {
-    id: ID!
-  }
-  type ContentfulComponentBlogLatest implements ContentfulEntry {
-    heading: String
-    styles: String
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentNewsletterLatest implements ContentfulEntry {
-    heading: String
-    styles: String
-    trailingBlurb: RichText
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-    signupButtonLabel: String
-    signupForm: ContentfulComponentNewsletterSignup @link(from: "signupForm___NODE")
-  }
-  type ContentfulComponentNewsletterSignup implements ContentfulEntry {
-    heading: String
-    styles: String
-    introContent: RichText
-    submitButtonLabel: String
-    successHeading: String
-    successBody: RichText
-    errorHeading: String
-    errorBody: RichText
-  }
-  type ContentfulComponentContactForm implements ContentfulEntry {
-    heading: String
-    styles: String
-    introContent: RichText
-    availableTopics: [String!]
-    showNewsletterSignup: Boolean
-    submitButtonLabel: String
-    successHeading: String
-    successBody: RichText
-    errorHeading: String
-    errorBody: RichText
-  }
-  type ContentfulComponentCommissionCard implements ContentfulEntry {
-    title: String!
-    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
-    developer: String
-    publisher: String
-    releaseYear: String
-    primaryLink: String
-    steamLink: String
-    itchioLink: String
-    youTubeLink: String
-    otherLink: String
-  }
-  type ContentfulBlockGroup implements ContentfulEntry {
-    styles: String
-    structureType: String
-    content: [ContentfulPageContent] @link(from: "content___NODE")
   }
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
@@ -131,7 +45,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     copyrightLine: String
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulBlockContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -236,3 +150,64 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   );
   */
 }
+
+
+/*
+
+  type ContentfulComponentText implements ContentfulEntry {
+    styles: String
+    fancyHeading: String
+    dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
+    image: ContentfulAsset @link(from: "image___NODE")
+    content: RichText
+  }
+  type ContentfulBlockContentCard implements ContentfulEntry {
+    styles: String
+    fancyHeading: String
+    cardType: String
+    image: ContentfulAsset @link(from: "image___NODE")
+    content: RichText
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
+  type ContentfulComponentHero implements ContentfulEntry {
+    heading: String
+    styles: String
+    body: RichText
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+    portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
+  }
+  type ContentfulComponentVideo implements ContentfulEntry {
+    title: String!
+    styles: String
+    cardType: String
+    videoId: String
+    backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
+  }
+  type ContentfulComponentButtonBanner implements ContentfulEntry {
+    title: String!
+    subtext: String
+    styles: String
+    cardType: String
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
+  type ContentfulComponentBlogEntries implements ContentfulEntry {
+    id: ID!
+  }
+  type ContentfulComponentBlogLatest implements ContentfulEntry {
+    heading: String
+    styles: String
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
+  type ContentfulComponentContactForm implements ContentfulEntry {
+    heading: String
+    styles: String
+    introContent: RichText
+    availableTopics: [String!]
+    showNewsletterSignup: Boolean
+    submitButtonLabel: String
+    successHeading: String
+    successBody: RichText
+    errorHeading: String
+    errorBody: RichText
+  }
+*/
