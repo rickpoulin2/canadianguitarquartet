@@ -17,7 +17,7 @@ const ContentCard = ({ obj }) => {
   const heading = obj.fancyHeading ? <h2 className="bar"><span>{obj.fancyHeading}</span></h2> : ""
   const image = obj.image?.gatsbyImageData ? <GatsbyImage className="img-fluid" image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
   const cardClass = obj.cardType === "no-border" ? obj.cardType : "text-bg-" + obj.cardType
-  const buttonClass = "btn btn-lg btn-outline-" + (obj.cardType === "tertiary" || obj.cardType === "light" ? "dark" : "light")
+  const buttonClass = "btn btn-outline-" + (obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
     return <MyLink key={btn.id} obj={btn} addClasses={buttonClass} />
   });

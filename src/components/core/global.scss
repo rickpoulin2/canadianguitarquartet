@@ -91,16 +91,6 @@ a:hover {
     color: var(--bs-hover);
 }
 
-.text-bg-secondary {
-    a {
-        color: white;
-    }
-
-    a:hover {
-        color: var(--bs-light);
-    }
-}
-
 h1,
 h2,
 h3,
@@ -221,5 +211,23 @@ body {
 
     &::before {
         border-color: white;
+    }
+}
+
+blockquote {
+    border-left: 3px solid var(--bs-secondary);
+    margin-left: 0.2em;
+    padding-left: 0.7em;
+    margin-bottom: 1em;
+
+    p:last-child {
+        font-style: italic;
+        font-size: 0.8em;
+
+        &,
+        em {
+            font-weight: bold;
+            color: var(--bs-secondary);
+        }
     }
 }
