@@ -47,7 +47,7 @@ const PageComponent = ({ obj }) => {
     */
 
     console.log("unknown component: " + type);
-    return <></>
+    return <div>unknown component: {type}</div>
 }
 
 export default PageComponent
