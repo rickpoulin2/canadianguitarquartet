@@ -5,12 +5,12 @@ import Recaptcha from 'react-recaptcha';
 
 const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY;
 
-const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHeading, errorContent, modSubmitData, children }) => {
+const NetlifyForm = ({ name, lang = 'en', submitRef, successHeading, successContent, errorHeading, errorContent, modSubmitData, children }) => {
   const successHead = successHeading == null || successHeading === "" ? "" : `<h4 class="alert-heading">${successHeading}</h4>`
   const errorHead = errorHeading == null || errorHeading === "" ? "" : `<h4 class="alert-heading">${errorHeading}</h4>`
   const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={successContent} />)
   const errorBody = ReactDOMServer.renderToStaticMarkup(<RichText data={errorContent} />)
-  const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} render="explicit" onloadCallback={callback} />
+  const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} hl={lang} render="explicit" onloadCallback={callback} />
   const thisForm = useRef();
   const origSubmitText = useRef('');
 
