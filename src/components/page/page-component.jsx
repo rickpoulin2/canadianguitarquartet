@@ -9,6 +9,7 @@ import ContentCard from './content-card'
 //import BlogLatest from './blog-latest'
 import ComponentGroup from './component-group'
 import ContactForm from './contact-form'
+import ImageCard from './image';
 //import CommissionCard from './commission-card'
 
 const PageComponent = ({ obj }) => {
@@ -18,6 +19,8 @@ const PageComponent = ({ obj }) => {
         return <ComponentGroup obj={obj} />
     if (type === 'ContentfulBlockContentCard')
         return <ContentCard obj={obj} />
+    if (type === 'ContentfulBlockImage')
+        return <ImageCard obj={obj} />
     if (type === 'ContentfulBlockContactForm')
         return <ContactForm obj={obj} />
 
@@ -57,6 +60,7 @@ export const query = graphql`
         __typename
         id
         ...ContentfulBlockContentCard
+        ...ContentfulBlockImage
         ...ContentfulBlockContactForm
     }
 `

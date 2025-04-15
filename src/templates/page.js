@@ -4,7 +4,6 @@ import get from 'lodash/get'
 
 import AppContext from '/src/components/core/app-context'
 import Seo from '/src/components/core/seo'
-import Layout from '/src/components/core/layout'
 import PageTitle from '/src/components/core/page-title'
 import PageComponent from '/src/components/page/page-component'
 import Section from '/src/components/page/section'
@@ -12,7 +11,7 @@ import Section from '/src/components/page/section'
 class PageTemplate extends React.Component {
   render() {
     const pageData = this.props.data?.pageData
-    const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
+    const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} bg={get(this, 'props.data.siteData.nodes[0].pageTitleBg')} />
 
     let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
     if (pageData.mainContent?.length > 0) {
@@ -70,6 +69,9 @@ export const pageQuery = graphql`
       nodes {
         ... Seo
         ... Layout
+        pageTitleBg {
+          gatsbyImageData
+        }
       }
     }
   }

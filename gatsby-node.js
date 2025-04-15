@@ -35,6 +35,12 @@ exports.createSchemaCustomization = ({ actions }) => {
     content: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulBlockImage implements ContentfulEntry {
+    styles: String
+    cardType: String
+    image: ContentfulAsset @link(from: "image___NODE")
+    link: ContentfulLink @link(from: "link___NODE")
+  }
   type ContentfulBlockContactForm implements ContentfulEntry {
     styles: String
     introContent: RichText
@@ -53,9 +59,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     languageToggleText: String!
     footerContent: RichText
     copyrightLine: String
+    pageTitleBg: ContentfulAsset @link(from: "pageTitleBg___NODE")
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockContactForm
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
