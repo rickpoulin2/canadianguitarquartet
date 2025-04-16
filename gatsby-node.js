@@ -21,6 +21,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     content: RichText!
   }
+  type ContentfulEvent implements ContentfulEntry {
+    eventName: String!
+    eventDateTime: Date! @dateformat(formatString: "YYYY-MM-DDTHH:mm")
+    eventLocation: String
+    ticketPricing: String
+    ticketLink: String
+    eventDetails: RichText
+  }
   type ContentfulBlockGroup implements ContentfulEntry {
     styles: String
     structureType: String
@@ -40,6 +48,12 @@ exports.createSchemaCustomization = ({ actions }) => {
     cardType: String
     image: ContentfulAsset @link(from: "image___NODE")
     link: ContentfulLink @link(from: "link___NODE")
+  }
+  type ContentfulBlockEventsUpcoming implements ContentfulEntry {
+    heading: String!
+    styles: String
+    maxItems: Int
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulBlockContactForm implements ContentfulEntry {
     styles: String
@@ -61,8 +75,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     copyrightLine: String
     pageTitleBg: ContentfulAsset @link(from: "pageTitleBg___NODE")
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
+    eventsPage: ContentfulPage @link(from: "eventsPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -135,6 +150,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
       links: contentfulSiteGlobals {
         blogPage { url }
+        eventsPage { url }
       }
     }`
   );

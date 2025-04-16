@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'gatsby'
 import AppContext from '../core/app-context';
 
-const EntryLink = ({ title, type, locale, slug, className, activeClass, onClick, children }) => {
+const EntryLink = ({ title, type, locale, slug, data, className, activeClass, onClick, children }) => {
     const linkSlugs = useContext(AppContext).linkSlugs
 
     let href = null
@@ -10,6 +10,8 @@ const EntryLink = ({ title, type, locale, slug, className, activeClass, onClick,
         href = `/${locale}/${slug}/`
     if (type === "ContentfulBlogEntry")
         href = `/${locale}/${linkSlugs.blogPage}/#entry${slug}`
+    if (type === "ContentfulEvent")
+        href = `/${locale}/${linkSlugs.eventsPage}/#event-${getEventAnchor(data)}`
 
     if (href == null) {
         console.log(`unknown link type ${type} for slug ${slug}`)
@@ -20,3 +22,12 @@ const EntryLink = ({ title, type, locale, slug, className, activeClass, onClick,
 }
 
 export default EntryLink
+
+const getEventAnchor = (event) => {
+    if (event == null) {
+        return "error-missing-event-data"
+    }
+    return event.eventName.toLowerCase().replace(/\s/g, "-") + '--' + event.eventDate
+}
+
+export { getEventAnchor }

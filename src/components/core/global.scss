@@ -163,6 +163,10 @@ body {
     margin-bottom: 2em;
 }
 
+.card.no-border {
+    --bs-card-border-color: transparent;
+}
+
 .bar {
     position: relative;
 

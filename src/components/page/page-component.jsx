@@ -10,6 +10,7 @@ import ContentCard from './content-card'
 import ComponentGroup from './component-group'
 import ContactForm from './contact-form'
 import ImageCard from './image';
+import EventsUpcoming from './events-upcoming'
 //import CommissionCard from './commission-card'
 
 const PageComponent = ({ obj }) => {
@@ -23,6 +24,8 @@ const PageComponent = ({ obj }) => {
         return <ImageCard obj={obj} />
     if (type === 'ContentfulBlockContactForm')
         return <ContactForm obj={obj} />
+    if (type === 'ContentfulBlockEventsUpcoming')
+        return <EventsUpcoming obj={obj} />
 
     /*
     if (type === 'ContentfulComponentHero')
@@ -62,5 +65,6 @@ export const query = graphql`
         ...ContentfulBlockContentCard
         ...ContentfulBlockImage
         ...ContentfulBlockContactForm
+        ...ContentfulBlockEventsUpcoming
     }
 `
