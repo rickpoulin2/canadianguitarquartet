@@ -30,12 +30,12 @@ const EventsUpcoming = ({ obj }) => {
 
   let eventCount = 0
   const events = eventData.data?.nodes?.map((e) => {
-    console.log(today, e.eventDateTime, new Date(e.eventDateTime))
+    //console.log(today, e.eventDateTime, new Date(e.eventDateTime))
     if (e.node_locale !== obj.node_locale || today.getTime() > new Date(e.eventDateTime).getTime()) {
       return ""
     }
     eventCount++
-    return <EventCard key={e.id} obj={e} hide={eventCount > obj.maxItems} />
+    return <li key={e.id}><EventCard triggerAs='EntryLink' obj={e} showTickets={true} hide={eventCount > obj.maxItems} /></li>
   })
 
   const clz = "events-upcoming col " + (obj.styles ? obj.styles : "")
@@ -47,7 +47,7 @@ const EventsUpcoming = ({ obj }) => {
     thisMorning.setMinutes(0)
     thisMorning = thisMorning.getTime()
     document.querySelectorAll('.events-list').forEach((list) => {
-      console.log(list)
+      //console.log(list)
       let listCount = 0
       let listMax = obj.maxItems
       list.querySelectorAll('.event').forEach((event) => {
@@ -68,7 +68,6 @@ const EventsUpcoming = ({ obj }) => {
     })
   }, [obj.maxItems])
 
-  console.log(eventCount, obj.maxItems)
   return (
     <div className={clz}>
       <Card className="no-border">
@@ -76,7 +75,7 @@ const EventsUpcoming = ({ obj }) => {
           {heading}
           <ul className="events-list">
             {events}
-            <EventCard obj={null} hide={eventCount >= obj.maxItems} />
+            <li key="meow"><EventCard obj={null} hide={eventCount >= obj.maxItems} /></li>
           </ul>
         </CardBody>
       </Card>

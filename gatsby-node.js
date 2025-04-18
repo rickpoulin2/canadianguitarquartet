@@ -55,6 +55,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     maxItems: Int
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulBlockEventsDetails implements ContentfulEntry {
+    styles: String
+  }
   type ContentfulBlockContactForm implements ContentfulEntry {
     styles: String
     introContent: RichText
@@ -77,7 +80,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     eventsPage: ContentfulPage @link(from: "eventsPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -85,7 +88,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     introContent: [ContentfulPageContent] @link(from: "introContent___NODE")
     mainContent: [ContentfulPageContent] @link(from: "mainContent___NODE")
   }
-  `);
+  `)
 }
 
 const findAltPage = (items, contentful_id, wantedLocale) => {
@@ -93,10 +96,10 @@ const findAltPage = (items, contentful_id, wantedLocale) => {
     return null
   for (let i = 0; i < items.length; i++) {
     if (items[i].contentful_id === contentful_id && items[i].node_locale === wantedLocale) {
-      return items[i].url;
+      return items[i].url
     }
   }
-  return null;
+  return null
 }
 
 createPageTypes = async (graphql, actions, reporter, template, pathTransform, query) => {
@@ -106,7 +109,7 @@ createPageTypes = async (graphql, actions, reporter, template, pathTransform, qu
     reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
     return
   }
-  const items = results.data.items.nodes;
+  const items = results.data.items.nodes
   const slugs = {}
   Object.getOwnPropertyNames(results.data.links).forEach(x => { slugs[x] = results.data.links[x].url })
 
@@ -153,7 +156,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         eventsPage { url }
       }
     }`
-  );
+  )
 
   /*
   await createPageTypes(graphql, actions, reporter,
