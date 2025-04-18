@@ -26,16 +26,17 @@ const EventsUpcoming = ({ obj }) => {
             ...ContentfulEventSummary
           }
         }
-      }`);
+      }`)
 
-  let eventCount = 0;
+  let eventCount = 0
   const events = eventData.data?.nodes?.map((e) => {
+    console.log(today, e.eventDateTime, new Date(e.eventDateTime))
     if (e.node_locale !== obj.node_locale || today.getTime() > new Date(e.eventDateTime).getTime()) {
       return ""
     }
     eventCount++
     return <EventCard key={e.id} obj={e} hide={eventCount > obj.maxItems} />
-  });
+  })
 
   const clz = "events-upcoming col " + (obj.styles ? obj.styles : "")
   const heading = obj.heading ? <h2 class="bar"><span>{obj.heading}</span></h2> : ""
@@ -46,15 +47,15 @@ const EventsUpcoming = ({ obj }) => {
     thisMorning.setMinutes(0)
     thisMorning = thisMorning.getTime()
     document.querySelectorAll('.events-list').forEach((list) => {
-      console.log(list);
+      console.log(list)
       let listCount = 0
       let listMax = obj.maxItems
       list.querySelectorAll('.event').forEach((event) => {
         if (!event.classList.contains('event-blank')) {
           let eTime = new Date(event.querySelector('time').getAttribute('datetime')).getTime()
           if (thisMorning > eTime) {
-            event.classList.add('event-hidden');
-            return;
+            event.classList.add('event-hidden')
+            return
           }
         }
         if (listCount < listMax) {
@@ -65,8 +66,9 @@ const EventsUpcoming = ({ obj }) => {
         listCount++
       })
     })
-  }, [])
+  }, [obj.maxItems])
 
+  console.log(eventCount, obj.maxItems)
   return (
     <div className={clz}>
       <Card className="no-border">
@@ -74,7 +76,7 @@ const EventsUpcoming = ({ obj }) => {
           {heading}
           <ul className="events-list">
             {events}
-            <EventCard obj={null} />
+            <EventCard obj={null} hide={eventCount >= obj.maxItems} />
           </ul>
         </CardBody>
       </Card>
