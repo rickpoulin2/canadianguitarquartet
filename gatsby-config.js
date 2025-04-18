@@ -1,6 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-});
+})
 
 module.exports = {
   flags: { DEV_SSR: true },
@@ -40,7 +40,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-google-gtag",
       options: {
-        trackingIds: ["ASDF"],
+        trackingIds: ["G-FDX067KYJG"],
       },
     },
     "gatsby-transformer-inline-svg",
@@ -54,4 +54,4 @@ module.exports = {
       },
     },
   ],
-};
+}
