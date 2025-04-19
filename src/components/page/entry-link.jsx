@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'gatsby'
-import AppContext from '../core/app-context';
+import AppContext from '../core/app-context'
 
 const EntryLink = ({ title, type, locale, slug, data, className, activeClass, onClick, children }) => {
     const linkSlugs = useContext(AppContext).linkSlugs
@@ -25,7 +25,7 @@ export default EntryLink
 
 const getEventAnchor = (event) => {
     if (event == null) {
-        return "error-missing-event-data"
+        return ""
     }
     return event.eventName.toLowerCase().replace(/\s/g, "-") + '--' + event.eventDate
 }

@@ -26,7 +26,8 @@ exports.createSchemaCustomization = ({ actions }) => {
     eventDateTime: Date! @dateformat(formatString: "YYYY-MM-DDTHH:mm")
     eventLocation: String
     ticketPricing: String
-    ticketLink: String
+    ticketsLink: String
+    image: ContentfulAsset @link(from: "image___NODE")
     eventDetails: RichText
   }
   type ContentfulBlockGroup implements ContentfulEntry {

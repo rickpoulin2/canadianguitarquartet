@@ -23,22 +23,22 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
   if (hide) {
     eventClass += " event-hidden"
   }
-  const location = obj.eventLocation ? <p class="location">{obj.eventLocation}</p> : ""
+  const location = obj.eventLocation ? <p className="location">{obj.eventLocation}</p> : ""
   const ticketsLabel = obj.node_locale === 'fr' ? 'Billets' : 'Tickets'
   const tickets = (!showTickets || obj.ticketsLink == null) ? "" :
     <OutboundLink
       target="_blank"
       rel="noreferrer"
       className="link"
-      href={obj.ticketsLink}><i class="fas fa-ticket"></i> {ticketsLabel}</OutboundLink>
+      href={obj.ticketsLink}><i className="fas fa-ticket"></i> {ticketsLabel}</OutboundLink>
   const eventTime = !showTime ? "" :
-    <div class="show-time">
-      <span>2:30pm</span>
-      <span>local time</span>
+    <div className="show-time">
+      <span>{obj.node_locale === 'fr' ? obj.eventTimeFr : obj.eventTimeEn}</span>
+      <span>{obj.node_locale === 'fr' ? 'heure locale' : 'local time'}</span>
     </div>
 
   const triggerContents = <>
-    <time datetime={obj.eventDateTime}>
+    <time dateTime={obj.eventDateTime}>
       <span className="day">{day}</span>
       <span className="mth">{month}</span>
     </time>
@@ -51,8 +51,8 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
     className: 'summary'
   }
   if (controls != null) {
-    triggerProps.ariaControls = controls
-    triggerProps.ariaExpanded = false
+    triggerProps['aria-controls'] = controls
+    triggerProps['aria-expanded'] = false
   }
   if (onClick != null) {
     triggerProps.onClick = onClick
@@ -78,6 +78,8 @@ export const query = graphql`
     eventName
     eventDate: eventDateTime(formatString: "YYYY-MM-DD")
     eventDateTime(formatString: "YYYY-MM-DDTHH:mm")
+    eventTimeEn: eventDateTime(formatString: "h:mmA")
+    eventTimeFr: eventDateTime(formatString: "H:mm")
     eventLocation
     ticketsLink
   }
