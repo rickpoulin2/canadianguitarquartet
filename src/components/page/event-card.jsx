@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { graphql } from 'gatsby'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import EntryLink from './entry-link'
@@ -8,7 +8,6 @@ import './event-card.scss'
 const dateNow = new Date()
 
 const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClick, controls, eventKey }) => {
-  const [open, setOpen] = useState(false)
   if (obj == null)
     return <li className={`event event-blank ${hide ? 'event-hidden' : ''}`}></li>
   if (obj.eventName == null || obj.eventDateTime == null)

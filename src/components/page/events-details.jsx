@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Collapse, Accordion, AccordionContext, useAccordionButton } from 'react-bootstrap'
+import { Collapse } from 'react-bootstrap'
 
 import { getEventAnchor } from './entry-link'
 import EventCard from './event-card'
@@ -45,13 +45,19 @@ const EventsDetails = ({ obj }) => {
     newPanels[eventKey] = !newPanels[eventKey]
     setOpenPanels(newPanels)
   }
+  let firstTime = false
+  useEffect(() => {
+    if (!firstTime) {
+      console.log("meow")
+      return
+    }
+    console.log("meow", window.location.hash)
+  }, [])
 
-  let summaryIndex = -1
   const eventSummaries = eventData.data?.nodes?.map((e) => {
     if (e.node_locale !== obj.node_locale) {
       return ""
     }
-    summaryIndex++
     const anchor = getEventAnchor(e)
     return <li key={e.id}><EventCard triggerAs='button' obj={e} controls={'#' + anchor} eventKey={e.contentful_id} onClick={setOpenAccordion} /></li>
   })
