@@ -13,7 +13,7 @@ class PageTemplate extends React.Component {
     const pageData = this.props.data?.pageData
     const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} bg={get(this, 'props.data.siteData.nodes[0].pageTitleBg')} />
 
-    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />))
     if (pageData.mainContent?.length > 0) {
       mainBlock =
         <Section>
@@ -48,13 +48,11 @@ export const pageQuery = graphql`
       mainContent {
         ...PageComponent
         ... on ContentfulBlockGroup {
-            id
             styles
             structureType
             components:content {
             ...PageComponent
             ... on ContentfulBlockGroup {
-              id
               styles
               structureType
               components:content {

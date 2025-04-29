@@ -51,9 +51,8 @@
     .event-body {
         border-color: var(--bs-primary);
         border-style: solid;
-        border-width: 0 3px 3px 3px;
+        border-width: 0px 1px 1px 3px;
         padding: 1em;
-        box-shadow: inset 0 0 1px 0px var(--bs-primary);
 
         .tickets {
             margin-bottom: 1em;
@@ -87,16 +86,28 @@
 
 @media only screen and (min-width: 992px) {
     .events-details {
+        .events-list {
+            position: relative;
+
+            >.event:not(.active) {
+                position: absolute;
+                top: 0;
+            }
+        }
 
         .event,
         .event-old {
-            margin-top: 0 !important;
-
+            margin-bottom: 0 !important;
 
             h2.accordion-header {
+                position: static;
+                opacity: 0.99;
+                transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+
                 .event-summary {
                     background-color: white;
                     border: 0 none transparent;
+                    position: static;
                 }
 
                 time {
@@ -114,13 +125,19 @@
                 }
             }
 
+            h2.accordion-header:not(.active) {
+                opacity: 0;
+            }
+
             .summary {
                 gap: 1em;
             }
         }
 
         .event-body {
-            display: block;
+            background-color: white;
+            border: 0 none transparent;
+            padding: 1em 0;
         }
     }
 }

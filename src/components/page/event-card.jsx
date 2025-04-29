@@ -7,7 +7,7 @@ import './event-card.scss'
 
 const dateNow = new Date()
 
-const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClick, controls }) => {
+const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClick, controls, eventKey }) => {
   const [open, setOpen] = useState(false)
   if (obj == null)
     return <li className={`event event-blank ${hide ? 'event-hidden' : ''}`}></li>
@@ -54,10 +54,13 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
     triggerProps['aria-controls'] = controls
     triggerProps['aria-expanded'] = false
   }
+  if (eventKey != null) {
+    triggerProps['data-eventkey'] = eventKey
+  }
   if (onClick != null) {
     triggerProps.onClick = onClick
   }
-  const trigger = triggerAs === 'EntryLink'
+  const trigger = triggerAs === 'EntryLink' || triggerAs === 'link'
     ? EntryLink({ type: 'ContentfulEvent', locale: obj.node_locale, slug: obj.eventName, data: obj, children: triggerContents, ...triggerProps })
     : React.createElement(triggerAs, triggerProps, triggerContents)
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Accordion, AccordionContext, useAccordionButton } from 'react-bootstrap'
+import { Collapse, Accordion, AccordionContext, useAccordionButton } from 'react-bootstrap'
 
 import { getEventAnchor } from './entry-link'
 import EventCard from './event-card'
@@ -8,7 +8,9 @@ import EventBody from './event-body'
 
 import './events-details.scss'
 
+
 const EventsDetails = ({ obj }) => {
+  const [openPanels, setOpenPanels] = useState({})
   const eventData = useStaticQuery(
     graphql`
       query AllEvents {
@@ -21,33 +23,58 @@ const EventsDetails = ({ obj }) => {
           nodes {
             id
             node_locale
+            contentful_id
             ...ContentfulEventSummary
             ...ContentfulEventBody
           }
         }
       }`)
 
+
+  const setOpenAccordion = (e) => {
+    const eventKey = e.currentTarget.getAttribute('data-eventkey')
+    console.log(eventKey)
+    const newPanels = {}
+    newPanels[eventKey] = !openPanels[eventKey]
+    setOpenPanels(newPanels)
+  }
+  const toggleAccordion = (e) => {
+    const eventKey = e.currentTarget.getAttribute('data-eventkey')
+    console.log(eventKey)
+    const newPanels = { ...openPanels }
+    newPanels[eventKey] = !newPanels[eventKey]
+    setOpenPanels(newPanels)
+  }
+
+  let summaryIndex = -1
   const eventSummaries = eventData.data?.nodes?.map((e) => {
     if (e.node_locale !== obj.node_locale) {
       return ""
     }
-    return <li key={e.id}><EventCard triggerAs='button' obj={e} controls={"meow"} /></li>
+    summaryIndex++
+    const anchor = getEventAnchor(e)
+    return <li key={e.id}><EventCard triggerAs='button' obj={e} controls={'#' + anchor} eventKey={e.contentful_id} onClick={setOpenAccordion} /></li>
   })
 
-  let eventIndex = -1
   const eventDetails = eventData.data?.nodes?.map((e) => {
     if (e.node_locale !== obj.node_locale) {
       return ""
     }
-    eventIndex++
     const anchor = getEventAnchor(e)
+    const isActive = openPanels[e.contentful_id] === true
     return (
-      <Accordion.Item key={"deet" + e.id} eventKey={eventIndex} className="event" id={anchor}>
-        <ContextAwareAccordionHeader eventKey={eventIndex} eventObj={e} />
-        <Accordion.Body className="event-body" id={`body-${anchor}`}>
-          <EventBody obj={e} />
-        </Accordion.Body>
-      </Accordion.Item>
+      <div key={"deets" + e.id} className={`event ${isActive ? 'active' : ''}`} id={anchor}>
+        <h2 className={`accordion-header ${isActive ? 'active' : ''}`}>
+          <button onClick={toggleAccordion} data-eventkey={e.contentful_id}>
+            <EventCard key={e.id} obj={e} triggerAs='div' showTime={true} />
+          </button>
+        </h2>
+        <Collapse in={isActive} id={`body-${anchor}`}>
+          <div className="event-body">
+            <EventBody obj={e} />
+          </div>
+        </Collapse>
+      </div>
     )
   })
 
@@ -60,32 +87,11 @@ const EventsDetails = ({ obj }) => {
         </ul>
       </div>
       <div className={"events-details col-12 col-lg-8 " + clz}>
-        <Accordion className="events-list" id="events-list" alwaysOpen={true}>
+        <div className="events-list" id="events-list">
           {eventDetails}
-        </Accordion>
+        </div>
       </div>
     </>
-  )
-}
-
-const ContextAwareAccordionHeader = ({ eventKey, callback, eventObj }) => {
-  const { activeEventKey } = useContext(AccordionContext)
-  const decoratedOnClick = useAccordionButton(
-    eventKey,
-    () => callback && callback(eventKey)
-  )
-  let isActive = false
-  if (activeEventKey != null && typeof (activeEventKey) === 'object') {
-    isActive = activeEventKey.includes(eventKey)
-  } else {
-    isActive = activeEventKey == eventKey
-  }
-  return (
-    <h2 className={`accordion-header ${isActive ? 'active' : ''}`}>
-      <button onClick={decoratedOnClick}>
-        <EventCard key={eventObj.id} obj={eventObj} triggerAs='div' showTime={true} />
-      </button>
-    </h2>
   )
 }
 
