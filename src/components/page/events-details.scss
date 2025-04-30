@@ -24,11 +24,14 @@
         margin-bottom: 1em;
         position: relative;
 
-        .event-summary {
+        .event-card {
             margin-bottom: 0;
         }
 
         h2.accordion-header {
+            font-size: 1em;
+            font-family: var(--bs-font-body);
+            line-height: 1.5;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -104,7 +107,7 @@
                 opacity: 0.99;
                 transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
 
-                .event-summary {
+                .event-card {
                     background-color: white;
                     border: 0 none transparent;
                     position: static;
@@ -116,7 +119,7 @@
 
                 .title {
                     text-transform: uppercase;
-                    font-family: "Afacad Flux";
+                    font-family: var(--bs-font-headings);
                     font-size: 2em;
                 }
 

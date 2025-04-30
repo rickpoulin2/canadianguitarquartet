@@ -9,7 +9,7 @@ const dateNow = new Date()
 
 const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClick, controls, eventKey }) => {
   if (obj == null)
-    return <li className={`event event-blank ${hide ? 'event-hidden' : ''}`}></li>
+    return <div className={`event-card event-blank ${hide ? 'event-hidden' : ''}`}></div>
   if (obj.eventName == null || obj.eventDateTime == null)
     return
 
@@ -18,7 +18,10 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
   const month = new Intl.DateTimeFormat(dtLocale, { month: 'short' }).format(eventDateTime)
   const day = new Intl.DateTimeFormat(dtLocale, { day: 'numeric' }).format(eventDateTime)
 
-  let eventClass = eventDateTime.getTime() >= dateNow.getTime() ? 'event' : 'event-old'
+  let eventClass = "event-card"
+  if (eventDateTime.getTime() < dateNow.getTime()) {
+    eventClass += " event-old"
+  }
   if (hide) {
     eventClass += " event-hidden"
   }
@@ -64,7 +67,7 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
     : React.createElement(triggerAs, triggerProps, triggerContents)
 
   return (
-    <div className={`${eventClass} event-summary`}>
+    <div className={eventClass}>
       {trigger}
       {tickets}
       {eventTime}

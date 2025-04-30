@@ -48,9 +48,10 @@ const EventsUpcoming = ({ obj }) => {
     thisMorning = thisMorning.getTime()
     document.querySelectorAll('.events-list').forEach((list) => {
       //console.log(list)
+      return
       let listCount = 0
       let listMax = obj.maxItems
-      list.querySelectorAll('.event').forEach((event) => {
+      list.querySelectorAll('.event-card').forEach((event) => {
         if (!event.classList.contains('event-blank')) {
           let eTime = new Date(event.querySelector('time').getAttribute('datetime')).getTime()
           if (thisMorning > eTime) {
