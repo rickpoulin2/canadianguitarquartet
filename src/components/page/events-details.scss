@@ -111,6 +111,11 @@
                     background-color: white;
                     border: 0 none transparent;
                     position: static;
+
+                    &:hover,
+                    &:focus {
+                        box-shadow: none;
+                    }
                 }
 
                 time {
@@ -121,6 +126,10 @@
                     text-transform: uppercase;
                     font-family: var(--bs-font-headings);
                     font-size: 2em;
+                }
+
+                .summary:hover .title {
+                    color: var(--bs-primary);
                 }
 
                 .location {

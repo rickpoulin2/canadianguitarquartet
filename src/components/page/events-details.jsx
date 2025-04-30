@@ -39,19 +39,34 @@ const EventsDetails = ({ obj }) => {
     setOpenPanels(newPanels)
   }
   const toggleAccordion = (e) => {
+    if (window.innerWidth >= 992) {
+      return
+    }
     const eventKey = e.currentTarget.getAttribute('data-eventkey')
     console.log(eventKey)
     const newPanels = { ...openPanels }
     newPanels[eventKey] = !newPanels[eventKey]
     setOpenPanels(newPanels)
   }
-  let firstTime = false
   useEffect(() => {
-    if (!firstTime) {
-      console.log("meow")
-      return
+    // TODO: update actives
+
+    // select next available if on desktop
+    if (window.innerWidth >= 992) {
+      let firstActiveCard = document.querySelector(".events-details .event-card:not(.event-old)")
+      if (firstActiveCard != null) {
+        firstActiveCard.parentElement.click()
+      }
     }
-    console.log("meow", window.location.hash)
+
+    if (window.location.hash != null && window.location.hash.startsWith("#")) {
+      // open selected event
+      document.querySelectorAll(".events-details .event").forEach(e => {
+        if (e.getAttribute("id") === window.location.hash.substring(1)) {
+          e.querySelector("button").click()
+        }
+      })
+    }
   }, [])
 
   const eventSummaries = eventData.data?.nodes?.map((e) => {

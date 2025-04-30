@@ -11,7 +11,7 @@ const EntryLink = ({ title, type, locale, slug, data, className, activeClass, on
     if (type === "ContentfulBlogEntry")
         href = `/${locale}/${linkSlugs.blogPage}/#entry${slug}`
     if (type === "ContentfulEvent")
-        href = `/${locale}/${linkSlugs.eventsPage}/#event-${getEventAnchor(data)}`
+        href = `/${locale}/${linkSlugs.eventsPage}/#${getEventAnchor(data)}`
 
     if (href == null) {
         console.log(`unknown link type ${type} for slug ${slug}`)

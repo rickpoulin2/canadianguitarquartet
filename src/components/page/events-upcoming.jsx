@@ -48,7 +48,6 @@ const EventsUpcoming = ({ obj }) => {
     thisMorning = thisMorning.getTime()
     document.querySelectorAll('.events-list').forEach((list) => {
       //console.log(list)
-      return
       let listCount = 0
       let listMax = obj.maxItems
       list.querySelectorAll('.event-card').forEach((event) => {
