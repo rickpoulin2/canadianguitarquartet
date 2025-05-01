@@ -35,11 +35,11 @@ const EventsUpcoming = ({ obj }) => {
       return ""
     }
     eventCount++
-    return <li key={e.id}><EventCard triggerAs='EntryLink' obj={e} showTickets={true} hide={eventCount > obj.maxItems} /></li>
+    return <li key={e.id}><EventCard triggerAs='EntryLink' obj={e} sidecar="tickets" hide={eventCount > obj.maxItems} /></li>
   })
 
   const clz = "events-upcoming col " + (obj.styles ? obj.styles : "")
-  const heading = obj.heading ? <h2 class="bar"><span>{obj.heading}</span></h2> : ""
+  const heading = obj.heading ? <h2 className="bar"><span>{obj.heading}</span></h2> : ""
 
   useEffect(() => {
     let thisMorning = new Date()

@@ -19,13 +19,16 @@
 
 .events-details {
 
-    .event,
-    .event-old {
+    .event {
         margin-bottom: 1em;
         position: relative;
 
         .event-card {
             margin-bottom: 0;
+
+            &:focus {
+                box-shadow: none;
+            }
         }
 
         h2.accordion-header {
@@ -43,6 +46,10 @@
                 display: block;
                 width: 100%;
                 box-shadow: none;
+
+                &:focus {
+                    outline: none;
+                }
             }
         }
 
@@ -98,8 +105,7 @@
             }
         }
 
-        .event,
-        .event-old {
+        .event {
             margin-bottom: 0 !important;
 
             h2.accordion-header {

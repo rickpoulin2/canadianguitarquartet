@@ -14,8 +14,15 @@
     padding: 0;
 
     &:hover,
-    &:active {
+    button:focus,
+    &.active:hover,
+    &.active:focus {
         box-shadow: 0 0 0px 5px var(--bs-secondary);
+        outline: none;
+    }
+
+    &.active {
+        box-shadow: 0 0 0px 5px var(--bs-highlights);
     }
 
     .summary {
@@ -34,6 +41,10 @@
             text-align: center;
             border-right: 1px solid var(--bs-tertiary);
             flex: none;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
         }
 
         .day {
@@ -59,6 +70,11 @@
             line-height: 1.2;
             display: block;
             text-decoration: none;
+            font-size: 0.95em;
+
+            @media only screen and (min-width: 450px) {
+                font-size: 1em;
+            }
         }
 
         .title {
@@ -115,6 +131,7 @@
         justify-content: center;
         font-weight: 700;
         color: var(--bs-primary);
+        min-width: 90px;
 
         span {
             display: block;
@@ -139,7 +156,7 @@
     }
 }
 
-.event-old {
+.event-card.event-old {
 
     background-color: #ddd;
 
@@ -158,9 +175,14 @@
         }
     }
 
-    .show-time,
-    .tickets {
+    .show-time>*,
+    .tickets>* {
         display: none;
+    }
+
+    .show-time {
+        min-width: auto;
+        padding: 0;
     }
 
     .link {

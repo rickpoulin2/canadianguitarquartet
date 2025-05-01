@@ -35,8 +35,15 @@ const EventsDetails = ({ obj }) => {
     const eventKey = e.currentTarget.getAttribute('data-eventkey')
     console.log(eventKey)
     const newPanels = {}
-    newPanels[eventKey] = !openPanels[eventKey]
+    newPanels[eventKey] = true
     setOpenPanels(newPanels)
+    document.querySelectorAll('.events-index .event-card button').forEach((e) => {
+      if (e.getAttribute('data-eventkey') === eventKey) {
+        e.parentElement.classList.add('active')
+      } else {
+        e.parentElement.classList.remove('active')
+      }
+    })
   }
   const toggleAccordion = (e) => {
     if (window.innerWidth >= 992) {
@@ -51,11 +58,12 @@ const EventsDetails = ({ obj }) => {
   useEffect(() => {
     // TODO: update actives
 
+    let eventToOpen = null
     // select next available if on desktop
     if (window.innerWidth >= 992) {
       let firstActiveCard = document.querySelector(".events-details .event-card:not(.event-old)")
       if (firstActiveCard != null) {
-        firstActiveCard.parentElement.click()
+        eventToOpen = firstActiveCard.parentElement.getAttribute('data-eventkey')
       }
     }
 
@@ -63,9 +71,15 @@ const EventsDetails = ({ obj }) => {
       // open selected event
       document.querySelectorAll(".events-details .event").forEach(e => {
         if (e.getAttribute("id") === window.location.hash.substring(1)) {
-          e.querySelector("button").click()
+          eventToOpen = e.querySelector("button").getAttribute('data-eventkey')
         }
       })
+    }
+
+    if (eventToOpen != null) {
+      let x = {}
+      x[eventToOpen] = true
+      setOpenPanels(x)
     }
   }, [])
 
@@ -87,7 +101,7 @@ const EventsDetails = ({ obj }) => {
       <div key={"deets" + e.id} className={`event ${isActive ? 'active' : ''}`} id={anchor}>
         <h2 className={`accordion-header ${isActive ? 'active' : ''}`}>
           <button onClick={toggleAccordion} data-eventkey={e.contentful_id}>
-            <EventCard key={e.id} obj={e} triggerAs='div' showTime={true} />
+            <EventCard key={e.id} obj={e} triggerAs='div' sidecar="showtime" />
           </button>
         </h2>
         <Collapse in={isActive} id={`body-${anchor}`}>

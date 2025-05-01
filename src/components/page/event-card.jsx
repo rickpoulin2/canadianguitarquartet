@@ -7,7 +7,7 @@ import './event-card.scss'
 
 const dateNow = new Date()
 
-const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClick, controls, eventKey }) => {
+const EventCard = ({ obj, hide, triggerAs = 'div', sidecar, onClick, controls, eventKey }) => {
   if (obj == null)
     return <div className={`event-card event-blank ${hide ? 'event-hidden' : ''}`}></div>
   if (obj.eventName == null || obj.eventDateTime == null)
@@ -26,18 +26,24 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
     eventClass += " event-hidden"
   }
   const location = obj.eventLocation ? <p className="location">{obj.eventLocation}</p> : ""
-  const ticketsLabel = obj.node_locale === 'fr' ? 'Billets' : 'Tickets'
-  const tickets = (!showTickets || obj.ticketsLink == null) ? "" :
-    <OutboundLink
-      target="_blank"
-      rel="noreferrer"
-      className="link"
-      href={obj.ticketsLink}><i className="fas fa-ticket"></i> {ticketsLabel}</OutboundLink>
-  const eventTime = !showTime ? "" :
-    <div className="show-time">
-      <span>{obj.node_locale === 'fr' ? obj.eventTimeFr : obj.eventTimeEn}</span>
-      <span>{obj.node_locale === 'fr' ? 'heure locale' : 'local time'}</span>
-    </div>
+
+  let side = <div></div>
+  if (sidecar === 'tickets' && obj.ticketsLink != null) {
+    const ticketsLabel = obj.node_locale === 'fr' ? 'Billets' : 'Tickets'
+    side =
+      <OutboundLink
+        target="_blank"
+        rel="noreferrer"
+        className="link"
+        href={obj.ticketsLink}><i className="fas fa-ticket"></i> {ticketsLabel}</OutboundLink>
+  }
+  if (sidecar === 'showtime') {
+    side =
+      <div className="show-time">
+        <span>{obj.node_locale === 'fr' ? obj.eventTimeFr : obj.eventTimeEn}</span>
+        <span>{obj.node_locale === 'fr' ? 'heure locale' : 'local time'}</span>
+      </div>
+  }
 
   const triggerContents = <>
     <time dateTime={obj.eventDateTime}>
@@ -69,8 +75,7 @@ const EventCard = ({ obj, hide, triggerAs = 'div', showTickets, showTime, onClic
   return (
     <div className={eventClass}>
       {trigger}
-      {tickets}
-      {eventTime}
+      {side}
     </div>
   )
 }
