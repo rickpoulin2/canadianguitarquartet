@@ -4,6 +4,8 @@
     grid-template-columns: 1fr;
 
     .disclaimer {
+        font-size: 0.9em;
+
         .card-body {
             display: flex;
             flex-direction: column;
@@ -19,7 +21,16 @@
         grid-template-columns: 1fr 1fr;
 
         .disclaimer {
+            font-size: 1em;
             grid-column: 1 / span 2;
+        }
+
+        >.carousel-item {
+            display: block;
+        }
+
+        .carousel {
+            display: none;
         }
     }
 
@@ -69,7 +80,7 @@
         }
     }
 
-    .card a:hover i {
+    .photo-item:hover i {
         color: var(--bs-primary);
         background-color: rgba(var(--bs-light-rgb), 0.8);
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { Card } from 'react-bootstrap'
+import { Card, Carousel } from 'react-bootstrap'
 import RichText from './richtext'
 
 import './gallery.scss'
@@ -18,7 +18,7 @@ const ImageGallery = ({ obj }) => {
   let disclaimerCard = ""
   let pdfButton = ""
   if (obj.pdfButtonText != null && obj.pdfButtonFile != null) {
-    pdfButton = <p><a className="btn btn-outline-light" href={obj.pdfButtonFile.file.url} target="_blank" download={obj.pdfButtonFile.file.fileName}>{obj.pdfButtonText}</a></p>
+    pdfButton = <p><a className="btn btn-outline-light" href={obj.pdfButtonFile.file.url} target="_blank" rel="noreferrer" download={obj.pdfButtonFile.file.fileName}>{obj.pdfButtonText}</a></p>
   }
   if (obj.disclaimerContent != null || pdfButton !== "") {
     const cardClass = obj.cardType === "no-border" ? obj.cardType : "text-bg-" + obj.cardType
@@ -34,12 +34,14 @@ const ImageGallery = ({ obj }) => {
 
   const galleryCards = obj.images.map((i) => {
     return (
-      <Card className="photo-item">
-        <a href={i.file.url} target="_blank" download={i.file.fileName}>
-          <GatsbyImage className="img-fluid" image={i.gatsbyImageData} alt={i.description} />
-          <i className="fas fa-download"></i>
-        </a>
-      </Card>
+      <Carousel.Item>
+        <Card className="photo-item">
+          <a href={i.file.url} target="_blank" rel="noreferrer" download={i.file.fileName}>
+            <GatsbyImage className="img-fluid" image={i.gatsbyImageData} alt={i.description} />
+            <i className="fas fa-download"></i>
+          </a>
+        </Card>
+      </Carousel.Item>
     )
   })
 
@@ -47,6 +49,9 @@ const ImageGallery = ({ obj }) => {
     <div className={styles}>
       {disclaimerCard}
       {galleryCards}
+      <Carousel>
+        {galleryCards}
+      </Carousel>
     </div>
   )
 
