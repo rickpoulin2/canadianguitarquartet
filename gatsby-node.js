@@ -50,6 +50,15 @@ exports.createSchemaCustomization = ({ actions }) => {
     image: ContentfulAsset @link(from: "image___NODE")
     link: ContentfulLink @link(from: "link___NODE")
   }
+  type ContentfulBlockImageGallery implements ContentfulEntry {
+    styles: String
+    cardType: String
+    fancyHeading: String
+    disclaimerContent: RichText
+    images: [ContentfulAsset] @link(from: "images___NODE")
+    pdfButtonText: String
+    pdfButtonFile: ContentfulAsset @link(from: "pdfButtonFile___NODE")
+  }
   type ContentfulBlockEventsUpcoming implements ContentfulEntry {
     heading: String!
     styles: String
@@ -81,7 +90,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     eventsPage: ContentfulPage @link(from: "eventsPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails | ContentfulBlockImageGallery
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
