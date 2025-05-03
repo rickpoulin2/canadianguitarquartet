@@ -76,6 +76,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     successBody: RichText
     errorHeading: String
     errorBody: RichText
+  } 
+  type ContentfulBlockBlogEntries implements ContentfulEntry {
+    id: ID!
+  }
+  type ContentfulBlockBlogLatest implements ContentfulEntry {
+    heading: String!
+    styles: String
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
@@ -90,7 +98,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     eventsPage: ContentfulPage @link(from: "eventsPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails | ContentfulBlockImageGallery
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails | ContentfulBlockImageGallery | ContentfulBlockBlogLatest | ContentfulBlockBlogEntries
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -200,21 +208,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
 /*
 
-  type ContentfulComponentText implements ContentfulEntry {
-    styles: String
-    fancyHeading: String
-    dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
-    image: ContentfulAsset @link(from: "image___NODE")
-    content: RichText
-  }
-  type ContentfulBlockContentCard implements ContentfulEntry {
-    styles: String
-    fancyHeading: String
-    cardType: String
-    image: ContentfulAsset @link(from: "image___NODE")
-    content: RichText
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
   type ContentfulComponentHero implements ContentfulEntry {
     heading: String
     styles: String
@@ -228,20 +221,5 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     cardType: String
     videoId: String
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
-  }
-  type ContentfulComponentButtonBanner implements ContentfulEntry {
-    title: String!
-    subtext: String
-    styles: String
-    cardType: String
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentBlogEntries implements ContentfulEntry {
-    id: ID!
-  }
-  type ContentfulComponentBlogLatest implements ContentfulEntry {
-    heading: String
-    styles: String
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
 */
