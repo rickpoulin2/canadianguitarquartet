@@ -1,16 +1,14 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-//import Hero from '../components/hero'
-//import Video from '../components/video'
 import ContentCard from './content-card'
-//import BlogEntries from './blog-entry'
-//import BlogLatest from './blog-latest'
 import ComponentGroup from './component-group'
 import ContactForm from './contact-form'
 import ImageCard from './image'
 import ImageGallery from './gallery'
 import EventsUpcoming from './events-upcoming'
 import EventsDetails from './events-details'
+import BlogEntries from './blog-entries'
+import BlogLatest from './blog-latest'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename
@@ -29,6 +27,10 @@ const PageComponent = ({ obj }) => {
         return <EventsUpcoming obj={obj} />
     if (type === 'ContentfulBlockEventsDetails')
         return <EventsDetails obj={obj} />
+    if (type === 'ContentfulBlockBlogEntries')
+        return <BlogEntries obj={obj} />
+    if (type === 'ContentfulBlockBlogLatest')
+        return <BlogLatest obj={obj} />
 
     console.log("unknown block: " + type)
     return <div className="col-12 card text-bg-danger">unknown block: {type}</div>
@@ -46,5 +48,7 @@ export const query = graphql`
         ...ContentfulBlockContactForm
         ...ContentfulBlockEventsUpcoming
         ...ContentfulBlockEventsDetails
+        ...ContentfulBlockBlogLatest
+        ...ContentfulBlockBlogEntries
     }
 `
