@@ -50,33 +50,36 @@ const BlogEntries = ({ obj }) => {
         const anchors = []
         let navEntries = data.nodes?.map((i) => {
             anchors.push(`entry${i.tag}`)
-            return <BlogLink key={i.id} obj={i} />
+            return <div key={i.id} className="list-group-item list-group-item-action"><BlogLink obj={i} /></div>
         })
+        console.log(anchors)
         nav =
-            <Col md="3" className="blog-nav">
-                <h2>On this page</h2>
+            <Col md="3" className="blog-sidebar">
+                <div className="blog-nav">
+                    <h2>On this page</h2>
 
-                <Scrollspy as="nav" items={anchors} className="blog-index list-group" currentClassName="active">
-                    {navEntries}
-                </Scrollspy>
+                    <Scrollspy componentTag="nav" items={anchors} className="blog-index list-group" currentClassName="active">
+                        {navEntries}
+                    </Scrollspy>
 
-                <nav aria-label="Blog navigation" className="blog-pagination">
-                    <ul className="pagination">
-                        <li className="page-item disabled">
-                            <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                    <nav aria-label="Blog navigation" className="blog-pagination">
+                        <ul className="pagination">
+                            <li className="page-item disabled">
+                                <a className="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                            <li className="page-item"><a className="page-link" href="#">2</a></li>
+                            <li className="page-item"><a className="page-link" href="#">3</a></li>
+                            <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </Col>
     }
 
@@ -101,10 +104,10 @@ export default BlogEntries
 
 
 const BlogLink = ({ obj }) => (
-    <EntryLink type="ContentfulBlogEntry" slug={obj.tag} locale={obj.node_locale} className="list-group-item list-group-item-action">
+    <a href={"#entry" + obj.tag}>
         <span>{obj.title}</span>
         <span className="badge text-bg-secondary">{obj.publishedDate}</span>
-    </EntryLink>
+    </a>
 )
 
 export const query = graphql`

@@ -6,6 +6,7 @@ const EntryLink = ({ title, type, locale, slug, data, className, activeClass, on
     const linkSlugs = useContext(AppContext).linkSlugs
 
     let href = null
+
     if (type === "ContentfulPage")
         href = `/${locale}/${slug}/`
     if (type === "ContentfulBlogEntry")
@@ -18,6 +19,7 @@ const EntryLink = ({ title, type, locale, slug, data, className, activeClass, on
         return <>{children}</>
     }
 
+    //console.log("meow link", type, slug, data, href)
     return <Link to={href} className={className} activeClassName={activeClass} title={title} onClick={onClick}>{children}</Link>
 }
 
