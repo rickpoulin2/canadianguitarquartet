@@ -2,4 +2,10 @@
     .subtitle {
         font-style: italic;
     }
+
+    .entry-image,
+    .inline-image {
+        max-width: 250px;
+        float: right;
+    }
 }

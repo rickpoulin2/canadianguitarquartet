@@ -2,7 +2,6 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { Card } from 'react-bootstrap'
 import MyLink from './mylink'
-import RichText from './richtext'
 
 import './blog-latest.scss'
 import BlogEntry from './blog-entry'
@@ -47,7 +46,7 @@ const BlogLatest = ({ obj }) => {
 
   const data = obj.node_locale === "fr" ? blogData.dataFR : blogData.dataEN
   let entries = data.nodes?.map((i) =>
-    <BlogEntry obj={i} />
+    <BlogEntry key={i.id} obj={i} />
   )
   if (!(data.nodes?.length > 0)) {
     entries = obj.node_locale === "fr" ? <li>Aucun article publié, revenez plus tard!</li> : <li>Nothing here yet! Check back soon.</li>

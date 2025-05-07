@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Accordion, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import Scrollspy from 'react-scrollspy'
 import BlogEntry from './blog-entry'
 import EntryLink from './entry-link'
@@ -41,6 +41,7 @@ const BlogEntries = ({ obj }) => {
     //const showNav = data.nodes?.length > 3
     const showNav = true
 
+
     let entries = data.nodes?.map((i) =>
         <BlogEntry key={i.id} obj={i} showAbbreviated={false} backToTop={true} />
     )
@@ -59,18 +60,18 @@ const BlogEntries = ({ obj }) => {
                     {navEntries}
                 </Scrollspy>
 
-                <nav aria-label="Blog navigation" class="blog-pagination">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
+                <nav aria-label="Blog navigation" className="blog-pagination">
+                    <ul className="pagination">
+                        <li className="page-item disabled">
+                            <a className="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                        <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item">
+                            <a className="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

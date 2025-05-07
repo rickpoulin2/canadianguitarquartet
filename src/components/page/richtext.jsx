@@ -48,6 +48,11 @@ export const query = graphql`
         contentful_id
         tag: publishedDate(formatString: "YYYYMMDD")
       }
+      ... on ContentfulAsset {
+        contentful_id
+        description
+        gatsbyImageData(width:250)
+      }
     }
   }
 `

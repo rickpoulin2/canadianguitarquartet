@@ -2,7 +2,7 @@ const path = require('path')
 
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
-  union LinkableTypes = ContentfulPage | ContentfulBlogEntry
+  union LinkableTypes = ContentfulPage | ContentfulBlogEntry | ContentfulAsset
   type RichText {
     raw: String!
     references: [LinkableTypes] @link(from: "references___NODE")
@@ -18,7 +18,9 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulBlogEntry implements ContentfulEntry {
     title: String!
+    author: String
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    image: ContentfulAsset @link(from: "image___NODE")
     content: RichText!
   }
   type ContentfulEvent implements ContentfulEntry {
