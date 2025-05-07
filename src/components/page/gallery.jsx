@@ -34,7 +34,7 @@ const ImageGallery = ({ obj }) => {
 
   const galleryCards = obj.images.map((i) => {
     return (
-      <Carousel.Item>
+      <Carousel.Item key={i.id}>
         <Card className="photo-item">
           <a href={i.file.url} target="_blank" rel="noreferrer" download={i.file.fileName}>
             <GatsbyImage className="img-fluid" image={i.gatsbyImageData} alt={i.description} />
@@ -75,6 +75,7 @@ export const query = graphql`
       }
     }
     images {
+      id
       description
       gatsbyImageData(width:550)
       file {
