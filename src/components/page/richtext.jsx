@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { INLINES, MARKS } from '@contentful/rich-text-types'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
+import AppContext from '../core/app-context'
 import EntryLink from './entry-link'
 
 const RichText = ({ data, addOptions }) => {
+  const locale = useContext(AppContext).locale
   if (data == null)
     return
 
@@ -25,7 +27,7 @@ const RichText = ({ data, addOptions }) => {
       },
       [INLINES.ENTRY_HYPERLINK]: (node, children) => {
         const target = node.data.target
-        return <EntryLink type={target.__typename} slug={target.slug ? target.slug : target.tag}>{children}</EntryLink>
+        return <EntryLink locale={locale} type={target.__typename} slug={target.slug ? target.slug : target.tag}>{children}</EntryLink>
       },
       ...addOptions?.renderNode
     }

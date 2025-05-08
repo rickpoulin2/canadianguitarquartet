@@ -3,16 +3,22 @@ import { Link } from 'gatsby'
 import AppContext from '../core/app-context'
 
 const EntryLink = ({ title, type, locale, slug, data, className, activeClass, onClick, children }) => {
-    const linkSlugs = useContext(AppContext).linkSlugs
-
+    let context = useContext(AppContext)
+    if (locale == null) {
+        locale = context.locale
+    }
     let href = null
 
-    if (type === "ContentfulPage")
+    if (type === "ContentfulPage") {
         href = `/${locale}/${slug}/`
+        if (data != null && data.page > 1) {
+            href += data.page + "/"
+        }
+    }
     if (type === "ContentfulBlogEntry")
-        href = `/${locale}/${linkSlugs.blogPage}/#entry${slug}`
+        href = `/${locale}/${context.linkSlugs[locale].blogPage}/#entry${slug}`
     if (type === "ContentfulEvent")
-        href = `/${locale}/${linkSlugs.eventsPage}/#${getEventAnchor(data)}`
+        href = `/${locale}/${context.linkSlugs[locale].eventsPage}/#${getEventAnchor(data)}`
 
     if (href == null) {
         console.log(`unknown link type ${type} for slug ${slug}`)

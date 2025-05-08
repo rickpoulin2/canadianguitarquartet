@@ -1,4 +1,5 @@
 const path = require('path')
+const gatsbyQuery = require('./src/gatsby-node-query')
 
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
@@ -122,19 +123,14 @@ const findAltPage = (items, contentful_id, wantedLocale) => {
   return null
 }
 
-createPageTypes = async (graphql, actions, reporter, template, pathTransform, query) => {
+createPageTypes = async (actions, items, slugs, template, pathTransform) => {
   const { createPage } = actions
-  const results = await graphql(query)
-  if (results.errors) {
-    reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
-    return
-  }
-  const items = results.data.items.nodes
-  const slugs = {}
-  Object.getOwnPropertyNames(results.data.links).forEach(x => { slugs[x] = results.data.links[x].url })
 
   if (items.length > 0) {
     items.forEach((item, index) => {
+      if (item.url === slugs[item.node_locale].blogPage) {
+        return
+      }
       const previousPostSlug = index === 0 ? null : items[index - 1].url
       const nextPostSlug = index === items.length - 1 ? null : items[index + 1].url
       const otherLocale = item.node_locale !== "en" ? "en" : "fr"
@@ -155,56 +151,74 @@ createPageTypes = async (graphql, actions, reporter, template, pathTransform, qu
   }
 }
 
+createPaginatedTypes = async (actions, items, locale, slugs, template, pathTransform, entriesPerPage) => {
+  const { createPage } = actions
+
+  if (items.length > 0) {
+    const pageCount = Math.ceil(items.length / entriesPerPage)
+    if (pageCount === 0)
+      pageCount = 1
+    for (let index = 0; index < pageCount; index++) {
+      const otherLocale = locale !== "en" ? "en" : "fr"
+
+      createPage({
+        path: pathTransform(locale, index + 1, slugs[locale]),
+        component: template,
+        context: {
+          locale: locale,
+          slug: slugs[locale].blogPage,
+          altSlug: pathTransform(otherLocale, 1, slugs[otherLocale]),
+          thisPage: index + 1,
+          lastPage: pageCount,
+          linkSlugs: slugs,
+          entries: items.slice(index * entriesPerPage, (index + 1) * entriesPerPage)
+        },
+      })
+    }
+  }
+}
+
+// graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
+const exceptionWrapper = promise =>
+  promise.then(result => {
+    if (result.errors) {
+      throw result.errors
+      //reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
+      //return
+    }
+    return result
+  })
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  await createPageTypes(graphql, actions, reporter,
+  const results = await exceptionWrapper(graphql(gatsbyQuery))
+  const slugs = { en: {}, fr: {} }
+  Object.getOwnPropertyNames(results.data.linksEN).forEach(x => { slugs.en[x] = results.data.linksEN[x].url })
+  Object.getOwnPropertyNames(results.data.linksFR).forEach(x => { slugs.fr[x] = results.data.linksFR[x].url })
+
+  await createPageTypes(actions,
+    results.data.pages?.nodes,
+    slugs,
     path.resolve('./src/templates/page.js'),
-    (lang, slug) => (slug ? `/${lang}/${slug}/` : `/${lang}/`),
-    `{
-      items: allContentfulPage(
-        filter: {
-          title: {ne:null},
-          url: {ne:null}
-      }) {
-        nodes {
-          contentful_id
-          node_locale
-          url
-        }
-      }
-      links: contentfulSiteGlobals {
-        blogPage { url }
-        eventsPage { url }
-      }
-    }`
+    (lang, slug) => (slug ? `/${lang}/${slug}/` : `/${lang}/`)
   )
 
-  /*
-  await createPageTypes(graphql, actions, reporter,
-    path.resolve('./src/templates/newsletter.js'),
-    (slug, links) => `/${links.newsletterPage}/${slug}/`,
-    `{
-      items: allContentfulNewsletter(
-          sort: { publishedDate: DESC },
-          filter: {
-            url: {ne:null},
-            heading: {ne:null},
-            bodyContent: { raw: {ne:null} },
-            publishedDate: {ne:null},
-            tagLine: {ne:null},
-            bannerImage: { contentful_id: {ne:null} }
-          }) {
-        nodes {
-          url
-        }
-      }
-      links: contentfulSiteGlobals {
-        blogPage { url }
-        albumsPage { url }
-        newsletterPage { url }
-      }
-    }`
-  );
-  */
+  await createPaginatedTypes(actions,
+    results.data.blogEntriesEN?.nodes,
+    "en",
+    slugs,
+    path.resolve('./src/templates/page.js'),
+    (lang, slug, links) => (slug === 1 ? `/${lang}/${links.blogPage}/` : `/${lang}/${links.blogPage}/${slug}/`),
+    5
+  )
+
+  await createPaginatedTypes(actions,
+    results.data.blogEntriesFR?.nodes,
+    "fr",
+    slugs,
+    path.resolve('./src/templates/page.js'),
+    (lang, slug, links) => (slug === 1 ? `/${lang}/${links.blogPage}/` : `/${lang}/${links.blogPage}/${slug}/`),
+    5
+  )
 }
 
 
