@@ -112,6 +112,8 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
+const ENTRIES_PER_PAGE = 5
+
 const findAltPage = (items, contentful_id, wantedLocale) => {
   if (items == null)
     return null
@@ -208,7 +210,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     slugs,
     path.resolve('./src/templates/page.js'),
     (lang, slug, links) => (slug === 1 ? `/${lang}/${links.blogPage}/` : `/${lang}/${links.blogPage}/${slug}/`),
-    5
+    ENTRIES_PER_PAGE
   )
 
   await createPaginatedTypes(actions,
@@ -217,7 +219,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     slugs,
     path.resolve('./src/templates/page.js'),
     (lang, slug, links) => (slug === 1 ? `/${lang}/${links.blogPage}/` : `/${lang}/${links.blogPage}/${slug}/`),
-    5
+    ENTRIES_PER_PAGE
   )
 }
 

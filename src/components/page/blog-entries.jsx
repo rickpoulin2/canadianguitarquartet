@@ -27,13 +27,13 @@ const BlogEntries = ({ obj }) => {
         <BlogEntry key={i.id} obj={i} showAbbreviated={false} backToTop={true} />
     )
     let nav = <></>
+    let pageNav = <></>
     if (showNav) {
         const anchors = []
         const navEntries = data.map((i) => {
             anchors.push(`entry${i.tag}`)
             return <div key={i.id} className="list-group-item list-group-item-action"><BlogLink obj={i} /></div>
         })
-        let pageNav = <></>
         if (context.lastPage > 1) {
             console.log(context)
             const pageEntries = []
@@ -63,7 +63,7 @@ const BlogEntries = ({ obj }) => {
             )
         }
         nav =
-            <Col md="3" className="blog-sidebar">
+            <Col lg="4" xxl="3" className="blog-sidebar">
                 <div className="blog-nav">
                     <h2>On this page</h2>
                     <Scrollspy componentTag="nav" items={anchors} className="blog-index list-group" currentClassName="active">
@@ -84,8 +84,9 @@ const BlogEntries = ({ obj }) => {
     return (
         <>
             {nav}
-            <Col md="9" className="blog-entries">
+            <Col lg="" className="blog-entries">
                 {entries}
+                {pageNav}
             </Col>
         </>
     )

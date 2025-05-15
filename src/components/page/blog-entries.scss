@@ -10,11 +10,27 @@
 }
 
 .blog-pagination {
-  margin-top: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  justify-content: center;
+  display: flex;
+
+  .pagination {
+    --bs-pagination-disabled-bg: #ccc;
+  }
 }
 
+@media only screen and (min-width: 992px) {
+  .blog-entries .blog-pagination {
+    display: none;
+  }
+}
+
+
 .blog-sidebar {
-  order: 6;
+  @media only screen and (min-width:992px) {
+    order: 6;
+  }
 
   .blog-nav {
     padding: 0;
@@ -29,8 +45,9 @@
 
   .blog-index {
     font-size: 0.85em;
-    --bs-list-group-active-bg: var(--bs-tertiary);
-    --bs-list-group-active-border-color: var(--bs-tertiary);
+    --bs-list-group-active-color: var(--bs-list-group-color);
+    --bs-list-group-active-bg: var(--bs-list-group-bg);
+    --bs-list-group-active-border-color: var(--bs-list-group-border-color);
   }
 
   .blog-index a {
@@ -60,10 +77,18 @@
     }
 
     &.active a {
-      color: white;
+      color: var(--bs-list-group-active-color);
+    }
+  }
+
+  @media only screen and (min-width:992px) {
+    .blog-index {
+      --bs-list-group-active-color: white;
+      --bs-list-group-active-bg: var(--bs-tertiary);
+      --bs-list-group-active-border-color: var(--bs-tertiary);
     }
 
-    &.active span.badge {
+    .list-group-item.active span.badge {
       background-color: white !important;
       color: var(--bs-secondary) !important;
     }
