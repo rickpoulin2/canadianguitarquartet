@@ -88,6 +88,21 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulBlockHero implements ContentfulEntry {
+    heading: String!
+    styles: String
+    portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
+    backgroundImages: [ContentfulAsset] @link(from: "backgroundImages___NODE")
+    randomizeOrder: Boolean
+    transitionInterval: Int
+  }
+  type ContentfulBlockVideo implements ContentfulEntry {
+    title: String!
+    styles: String
+    cardType: String
+    videoId: String
+    backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
+  }
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     headerNavigation: [ContentfulLink] @link(from: "headerNavigation___NODE")
@@ -101,7 +116,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     eventsPage: ContentfulPage @link(from: "eventsPage___NODE")
   }
-  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails | ContentfulBlockImageGallery | ContentfulBlockBlogLatest | ContentfulBlockBlogEntries
+  union ContentfulPageContent = ContentfulBlockGroup | ContentfulBlockContentCard | ContentfulBlockImage | ContentfulBlockContactForm | ContentfulBlockEventsUpcoming | ContentfulBlockEventsDetails | ContentfulBlockImageGallery | ContentfulBlockBlogLatest | ContentfulBlockBlogEntries | ContentfulBlockHero | ContentfulBlockVideo
   type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
@@ -222,22 +237,3 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     ENTRIES_PER_PAGE
   )
 }
-
-
-/*
-
-  type ContentfulComponentHero implements ContentfulEntry {
-    heading: String
-    styles: String
-    body: RichText
-    buttons: [ContentfulLink] @link(from: "buttons___NODE")
-    portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
-  }
-  type ContentfulComponentVideo implements ContentfulEntry {
-    title: String!
-    styles: String
-    cardType: String
-    videoId: String
-    backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
-  }
-*/

@@ -81,18 +81,21 @@ header {
 
 }
 
-#home header .navbar-lang {
-    display: none;
-}
-
-#home header nav {
-    .navbar-brand {
+#home,
+#accueil {
+    header .navbar-lang {
         display: none;
     }
 
-    .navbar-nav {
-        justify-content: center;
-        gap: 3em;
+    header nav {
+        .navbar-brand {
+            display: none;
+        }
+
+        .navbar-nav {
+            justify-content: center;
+            gap: 3em;
+        }
     }
 }
 

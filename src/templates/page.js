@@ -11,14 +11,24 @@ import Section from '/src/components/page/section'
 class PageTemplate extends React.Component {
   render() {
     const pageData = this.props.data?.pageData
+    const siteData = this.props.data?.siteData?.nodes[0]
     const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} bg={get(this, 'props.data.siteData.nodes[0].pageTitleBg')} />
 
-    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />))
+    let introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} siteData={siteData} />))
+    if (pageData.introContent?.length > 0) {
+      introBlock =
+        <header className="content-first">
+          {introBlock}
+        </header>
+    }
+    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} siteData={siteData} />))
     if (pageData.mainContent?.length > 0) {
       mainBlock =
-        <Section>
-          {mainBlock}
-        </Section>
+        <main>
+          <Section>
+            {mainBlock}
+          </Section>
+        </main>
     }
     //console.log(pageData.id);
     //console.log(pageData.mainContent);
@@ -26,6 +36,7 @@ class PageTemplate extends React.Component {
     return (
       <AppContext.Provider value={this.props.pageContext}>
         {titleBlock}
+        {introBlock}
         {mainBlock}
       </AppContext.Provider>)
   }
@@ -45,6 +56,23 @@ export const pageQuery = graphql`
       node_locale
       title
       hideTitle
+      introContent {
+        ...PageComponent
+        ... on ContentfulBlockGroup {
+            styles
+            structureType
+            components:content {
+            ...PageComponent
+            ... on ContentfulBlockGroup {
+              styles
+              structureType
+              components:content {
+                ...PageComponent
+              }
+            }
+          }
+        }
+      }
       mainContent {
         ...PageComponent
         ... on ContentfulBlockGroup {

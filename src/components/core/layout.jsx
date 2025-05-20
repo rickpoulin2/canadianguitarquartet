@@ -17,14 +17,21 @@ const Layout = (props) => {
           buildTime
         }
       }`)
-  const siteData = data?.siteData?.nodes[0];
+  const siteData = data?.siteData?.nodes[0]
+
+  let id = ""
+  if (props.pageContext?.slug != null) {
+    id = props.pageContext?.slug.toLowerCase().replace(/\s/g, "-")
+  }
 
   return (
     <>
-      <Header siteData={siteData} altPage={props.pageContext.altSlug} />
-      <main>{children}</main>
-      <Footer siteData={siteData}
-        buildTime={siteBuildMetadata.buildTime} />
+      <div id={id} className="page-wrap">
+        <Header siteData={siteData} altPage={props.pageContext.altSlug} />
+        {children}
+        <Footer siteData={siteData}
+          buildTime={siteBuildMetadata.buildTime} />
+      </div>
       <script src="/js/bootstrap.min.js"></script>
     </>
   )

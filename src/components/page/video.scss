@@ -1,0 +1,22 @@
+.videocard>div {
+  background-size: cover;
+  margin-bottom: 2em;
+
+  &.no-border {
+    border-color: transparent !important;
+    --bs-card-spacer-x: 0;
+    --bs-card-spacer-y: 0;
+  }
+
+  div {
+    text-align: center;
+
+    @media only screen and (min-width:768px) and (max-width: 991px) {}
+  }
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+}

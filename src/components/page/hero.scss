@@ -1,0 +1,83 @@
+.block-hero {
+  background-color: var(--bs-tertiary);
+  /*background-image: url('../img/hero_bg2.png');*/
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+
+  border-bottom: 3px solid var(--bs-tertiary);
+
+  .navbar-lang {
+    display: inline-block !important;
+    position: absolute;
+    top: 2em;
+    right: 0;
+    width: min-content;
+
+    .btn {
+      box-shadow: 0 0 15px 0 var(--bs-secondary);
+    }
+  }
+
+  .row {
+    aspect-ratio: 28/13;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-image {
+    width: 80%;
+    margin: 4% auto;
+  }
+
+  .navbar-brand {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    img {
+      max-height: 110px;
+    }
+
+    svg {
+      height: 100px;
+      color: black;
+      padding: 1em;
+      margin-top: 0.5em;
+
+      text {
+        font-weight: 900;
+      }
+
+      path {
+        stroke-width: 6px;
+      }
+    }
+  }
+
+  .rotator {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.00;
+    /*background-image: url('../img/hero_bg2.png');*/
+    background-size: cover;
+    background-position: center center;
+    transition: opacity 2s ease-in-out;
+  }
+
+  .rotator-preload {
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .rotator.active {
+    opacity: 0.99;
+  }
+}

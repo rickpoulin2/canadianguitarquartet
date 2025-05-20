@@ -9,8 +9,10 @@ import EventsUpcoming from './events-upcoming'
 import EventsDetails from './events-details'
 import BlogEntries from './blog-entries'
 import BlogLatest from './blog-latest'
+import Video from './video'
+import Hero from './hero'
 
-const PageComponent = ({ obj }) => {
+const PageComponent = ({ obj, siteData }) => {
     const type = obj.__typename
 
     if (type === 'ContentfulBlockGroup')
@@ -31,6 +33,10 @@ const PageComponent = ({ obj }) => {
         return <BlogEntries obj={obj} />
     if (type === 'ContentfulBlockBlogLatest')
         return <BlogLatest obj={obj} />
+    if (type === 'ContentfulBlockVideo')
+        return <Video obj={obj} />
+    if (type === 'ContentfulBlockHero')
+        return <Hero obj={obj} siteData={siteData} />
 
     console.log("unknown block: " + type)
     return <div className="col-12 card text-bg-danger">unknown block: {type}</div>
@@ -50,5 +56,7 @@ export const query = graphql`
         ...ContentfulBlockEventsDetails
         ...ContentfulBlockBlogLatest
         ...ContentfulBlockBlogEntries
+        ...ContentfulBlockVideo
+        ...ContentfulBlockHero
     }
 `

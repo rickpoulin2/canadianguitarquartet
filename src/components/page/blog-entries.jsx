@@ -19,8 +19,7 @@ const BlogEntries = ({ obj }) => {
     const locale = obj.node_locale
     //const data = obj.node_locale === "fr" ? blogData.dataFR : blogData.dataEN
     const data = context.entries
-    //const showNav = data.nodes?.length > 3
-    const showNav = true
+    const showNav = data.nodes?.length > 3
 
 
     let entries = data.map((i) =>
@@ -38,7 +37,7 @@ const BlogEntries = ({ obj }) => {
             console.log(context)
             const pageEntries = []
             pageEntries.push(
-                <li className={`page-item ${context.thisPage === 1 ? "disabled" : ""}`} >
+                <li key="page-prev" className={`page-item ${context.thisPage === 1 ? "disabled" : ""}`} >
                     <EntryLink type="ContentfulPage" slug={context.linkSlugs[locale].blogPage} data={{ page: context.thisPage - 1 }} className="page-link"><span aria-label="Next" aria-hidden="true">&laquo;</span></EntryLink>
                 </li>
             )
@@ -50,7 +49,7 @@ const BlogEntries = ({ obj }) => {
                 )
             }
             pageEntries.push(
-                <li className={`page-item ${context.thisPage === context.lastPage ? "disabled" : ""}`}>
+                <li key="page-next" className={`page-item ${context.thisPage === context.lastPage ? "disabled" : ""}`}>
                     <EntryLink type="ContentfulPage" slug={context.linkSlugs[locale].blogPage} data={{ page: context.thisPage + 1 }} className="page-link"><span aria-label="Next" aria-hidden="true">&raquo;</span></EntryLink>
                 </li>
             )

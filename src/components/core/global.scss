@@ -235,3 +235,13 @@ blockquote {
         }
     }
 }
+
+div.page-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+header.content-first {
+    order: -1;
+    margin: 0;
+}
