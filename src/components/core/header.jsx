@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Link, graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap';
+import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap'
 import MyLink from '../page/mylink'
 
 import './header.scss'
@@ -33,7 +33,7 @@ const Header = ({ siteData, altPage }) => {
   }
 
   return (
-    <header>
+    <header id="mainnav">
       <Navbar variant="dark" expand="lg">
         <Container fluid="lg">
           <Navbar.Brand as="div">

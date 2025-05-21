@@ -8,7 +8,7 @@
   border-bottom: 3px solid var(--bs-tertiary);
 
   .navbar-lang {
-    display: inline-block !important;
+    display: inline-block;
     position: absolute;
     top: 2em;
     right: 0;
@@ -27,7 +27,10 @@
 
   .hero-image {
     width: 80%;
-    margin: 4% auto;
+    margin: 4% auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
   }
 
   .navbar-brand {
@@ -39,7 +42,7 @@
       max-height: 110px;
     }
 
-    svg {
+    #cgq-logo svg {
       height: 100px;
       color: black;
       padding: 1em;
@@ -79,5 +82,25 @@
 
   .rotator.active {
     opacity: 0.99;
+  }
+
+  @media only screen and (max-width:576px) {
+    .row {
+      width: 100%;
+      min-height: 250px;
+      aspect-ratio: unset;
+    }
+
+    .hero-image {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 991px) {
+
+    .navbar-brand,
+    .navbar-lang {
+      display: none;
+    }
   }
 }

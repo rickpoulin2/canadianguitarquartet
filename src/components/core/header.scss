@@ -83,18 +83,20 @@ header {
 
 #home,
 #accueil {
-    header .navbar-lang {
-        display: none;
-    }
-
-    header nav {
-        .navbar-brand {
+    @media only screen and (min-width:992px) {
+        #mainnav .navbar-lang {
             display: none;
         }
 
-        .navbar-nav {
-            justify-content: center;
-            gap: 3em;
+        #mainnav nav {
+            .navbar-brand {
+                display: none;
+            }
+
+            .navbar-nav {
+                justify-content: center;
+                gap: 3em;
+            }
         }
     }
 }

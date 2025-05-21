@@ -68,7 +68,9 @@ const Hero = ({ obj, siteData }) => {
       <div className='rotator-preload' style={{ backgroundImage: `url('${preloadBg}')` }}></div>
       <Container>
         <Row>
-          <GatsbyImage image={maskImage} className="hero-image" alt="composer portrait" />
+          <div className="hero-image">
+            <GatsbyImage image={maskImage} alt="composer portrait" transformOptions={{ fit: "contain" }} />
+          </div>
           <div className="navbar-brand">
             {siteLogo}
             <p className="h1 visually-hidden">{obj.heading}</p>
