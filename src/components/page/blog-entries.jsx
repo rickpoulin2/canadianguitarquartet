@@ -19,7 +19,7 @@ const BlogEntries = ({ obj }) => {
     const locale = obj.node_locale
     //const data = obj.node_locale === "fr" ? blogData.dataFR : blogData.dataEN
     const data = context.entries
-    const showNav = data.nodes?.length > 3
+    const showNav = data.length > 3 || context.lastPage > 1
 
 
     let entries = data.map((i) =>
