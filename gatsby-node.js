@@ -148,6 +148,9 @@ createPageTypes = async (actions, items, slugs, template, pathTransform) => {
       if (item.url === slugs[item.node_locale].blogPage) {
         return
       }
+      if (item.url === "404") {
+        return
+      }
       const previousPostSlug = index === 0 ? null : items[index - 1].url
       const nextPostSlug = index === items.length - 1 ? null : items[index + 1].url
       const otherLocale = item.node_locale !== "en" ? "en" : "fr"

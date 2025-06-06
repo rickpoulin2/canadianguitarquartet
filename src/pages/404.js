@@ -2,28 +2,33 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
 
-import AppContext from '../components/core/app-context'
-import Seo from '../components/core/seo'
-//import PageTitle from '../components/page-title'
-//import PageComponent from '../components/page-component'
-//import Section from '../components/section'
+import AppContext from '/src/components/core/app-context'
+import Seo from '/src/components/core/seo'
+import PageTitle from '/src/components/core/page-title'
+import PageComponent from '/src/components/page/page-component'
+import Section from '/src/components/page/section'
 
 class PageTemplate extends React.Component {
   render() {
-    return <div>404</div>
-  }
-  /*
-  render() {
-    const pageData = this.props.data.contentfulPage
-    const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
+    const pageData = this.props.data?.pageData
+    const siteData = this.props.data?.siteData?.nodes[0]
+    const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} bg={get(this, 'props.data.siteData.nodes[0].pageTitleBg')} />
 
-    const introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
-    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+    let introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} siteData={siteData} />))
+    if (pageData.introContent?.length > 0) {
+      introBlock =
+        <header className="content-first">
+          {introBlock}
+        </header>
+    }
+    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} siteData={siteData} />))
     if (pageData.mainContent?.length > 0) {
       mainBlock =
-        <Section>
-          {mainBlock}
-        </Section>
+        <main>
+          <Section>
+            {mainBlock}
+          </Section>
+        </main>
     }
     //console.log(pageData.id);
     //console.log(pageData.mainContent);
@@ -33,31 +38,31 @@ class PageTemplate extends React.Component {
         {titleBlock}
         {introBlock}
         {mainBlock}
-      </AppContext.Provider>
-    )
+      </AppContext.Provider>)
   }
-    */
 }
 
 export default PageTemplate
 
-/*
-export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
+export const Head = ({ data }) => <Seo lang={get(data, 'pageData.node_locale')} title={get(data, 'pageData.title')} siteData={get(data, 'siteData.nodes[0]')} />
 
 export const pageQuery = graphql`
-  query ErrorPageBySlug {
-    contentfulPage(url: { eq: "404" }) {
-      id
+  query PageBySlug {
+    pageData: contentfulPage(url: { eq: "404" }, node_locale: { eq: "en" }) {
+      contentful_id
+      node_locale
       title
       hideTitle
       introContent {
         ...PageComponent
-        ... on ContentfulComponentGroup {
-          styles
-          components:content {
+        ... on ContentfulBlockGroup {
+            styles
+            structureType
+            components:content {
             ...PageComponent
-            ... on ContentfulComponentGroup {
+            ... on ContentfulBlockGroup {
               styles
+              structureType
               components:content {
                 ...PageComponent
               }
@@ -67,12 +72,14 @@ export const pageQuery = graphql`
       }
       mainContent {
         ...PageComponent
-        ... on ContentfulComponentGroup {
-          styles
-          components:content {
+        ... on ContentfulBlockGroup {
+            styles
+            structureType
+            components:content {
             ...PageComponent
-            ... on ContentfulComponentGroup {
+            ... on ContentfulBlockGroup {
               styles
+              structureType
               components:content {
                 ...PageComponent
               }
@@ -80,12 +87,15 @@ export const pageQuery = graphql`
           }
         }
       }
-    }
-    links: contentfulSiteGlobals {
-      blogPage { url }
-      albumsPage { url }
-      newsletterPage { url }
+    } 
+    siteData: allContentfulSiteGlobals(limit: 1, filter: { node_locale: { eq: "en" }} sort: { siteTitle: ASC }) {
+      nodes {
+        ... Seo
+        ... Layout
+        pageTitleBg {
+          gatsbyImageData
+        }
+      }
     }
   }
 `
-*/

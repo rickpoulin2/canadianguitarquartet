@@ -167,6 +167,11 @@ body {
     --bs-card-border-color: transparent;
 }
 
+.card.no-margin {
+    --bs-card-spacer-x: 0;
+    --bs-card-spacer-y: 0;
+}
+
 .bar {
     position: relative;
 

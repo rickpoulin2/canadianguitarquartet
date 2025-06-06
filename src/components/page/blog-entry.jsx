@@ -25,14 +25,6 @@ const BlogEntry = ({ obj, showAbbreviated = true, backToTop = false }) => {
     }
   }
   const longOptions = {
-    renderNode: {
-      [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
-        if (node.data?.target?.gatsbyImageData == null) {
-          return <></>
-        }
-        return <GatsbyImage className="inline-image" image={node.data.target.gatsbyImageData} alt={node.data.target.description} />
-      },
-    }
   }
 
 

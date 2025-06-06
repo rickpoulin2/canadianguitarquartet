@@ -16,11 +16,11 @@ const ContentCard = ({ obj }) => {
   const styles = "cmp content-card " + (obj.styles ? obj.styles : "")
   const heading = obj.fancyHeading ? <h2 className="bar"><span>{obj.fancyHeading}</span></h2> : ""
   const image = obj.image?.gatsbyImageData ? <GatsbyImage className="img-fluid" image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
-  const cardClass = obj.cardType === "no-border" ? obj.cardType : "text-bg-" + obj.cardType
+  const cardClass = obj.cardType.indexOf("no-border") !== -1 ? obj.cardType : "text-bg-" + obj.cardType
   const buttonClass = "btn btn-outline-" + (obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
     return <MyLink key={btn.id} obj={btn} addClasses={buttonClass} />
-  });
+  })
 
   if (image) {
     // default == square

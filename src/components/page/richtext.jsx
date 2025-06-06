@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { INLINES, MARKS } from '@contentful/rich-text-types'
+import { INLINES, MARKS, BLOCKS } from '@contentful/rich-text-types'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import AppContext from '../core/app-context'
 import EntryLink from './entry-link'
@@ -29,6 +30,12 @@ const RichText = ({ data, addOptions }) => {
         const target = node.data.target
         return <EntryLink locale={locale} type={target.__typename} slug={target.slug ? target.slug : target.tag}>{children}</EntryLink>
       },
+      [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
+        if (node.data?.target?.gatsbyImageData == null) {
+          return <></>
+        }
+        return <GatsbyImage className="inline-image" image={node.data.target.gatsbyImageData} alt={node.data.target.description} />
+      },
       ...addOptions?.renderNode
     }
   }
@@ -53,7 +60,7 @@ export const query = graphql`
       ... on ContentfulAsset {
         contentful_id
         description
-        gatsbyImageData(width:250)
+        gatsbyImageData
       }
     }
   }
