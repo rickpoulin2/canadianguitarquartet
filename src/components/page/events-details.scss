@@ -76,6 +76,18 @@
             }
         }
 
+        .event-details-loc {
+            margin-bottom: 1em;
+            display: flex;
+            gap: 0.5em;
+            font-weight: 500;
+
+            i {
+                color: var(--bs-secondary);
+                padding: 0.3em 0;
+            }
+        }
+
         .gatsby-image-wrapper {
             width: 100%;
             margin-bottom: 1em;

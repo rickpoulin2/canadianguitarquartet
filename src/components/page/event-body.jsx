@@ -36,6 +36,7 @@ const EventBody = ({ obj }) => {
   return (
     <>
       {ticketCard}
+      <div className="event-details-loc"><i className="fa fa-thumb-tack"></i><span>{obj.eventLocation}</span></div>
       {image}
       <RichText data={obj.eventDetails} />
     </>

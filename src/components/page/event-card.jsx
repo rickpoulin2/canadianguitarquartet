@@ -25,7 +25,15 @@ const EventCard = ({ obj, hide, triggerAs = 'div', sidecar, onClick, controls, e
   if (hide) {
     eventClass += " event-hidden"
   }
-  const location = obj.eventLocation ? <p className="location">{obj.eventLocation}</p> : ""
+  let location = ""
+  if (obj.eventLocation) {
+    if (obj.eventLocation.indexOf(",") > 0) {
+      let shortLocation = obj.eventLocation.substring(0, obj.eventLocation.indexOf(","))
+      location = <p className="location"><abbr title={obj.eventLocation}>{shortLocation}</abbr></p>
+    } else {
+      location = <p className="location">{obj.eventLocation}</p>
+    }
+  }
 
   let side = ""
   if (sidecar === 'tickets' && obj.ticketsLink != null) {
