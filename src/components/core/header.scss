@@ -63,7 +63,31 @@ header {
         justify-content: end;
         align-items: center;
         --bs-navbar-nav-link-padding-x: 1em;
+    }
 
+    .navbar-socials {
+        height: 4em;
+        justify-content: center;
+        align-items: center;
+        writing-mode: vertical-lr;
+        display: inline-flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0 0 0 1.5em;
+
+        li {
+            width: fit-content;
+            writing-mode: horizontal-tb;
+        }
+
+        .nav-link {
+            --bs-nav-link-padding-x: 0.25em;
+            --bs-nav-link-padding-y: 0.25em;
+        }
+    }
+
+    .navbar-nav,
+    .navbar-socials {
         .nav-link {
             color: white;
             font-weight: 500;
@@ -97,6 +121,16 @@ header {
                 justify-content: center;
                 gap: 3em;
             }
+
+            .navbar-socials {
+                writing-mode: inherit;
+                height: auto;
+                padding: 0 1rem;
+
+                li {
+                    margin: 0 0.2em;
+                }
+            }
         }
     }
 }
@@ -110,6 +144,15 @@ header {
     }
 }
 
-.offcanvas .navbar-lang {
-    margin: 1em 0em;
+.offcanvas {
+
+    .navbar-lang {
+        margin: 1em 0em;
+    }
+
+    .navbar-socials {
+        font-size: 1.2em;
+
+    }
+
 }

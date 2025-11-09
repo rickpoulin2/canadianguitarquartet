@@ -32,6 +32,13 @@ const Header = ({ siteData, altPage }) => {
     siteLogo = <div id="cgq-logo" dangerouslySetInnerHTML={{ __html: siteData.siteLogo.svg.originalContent }}></div>
   }
 
+  let headerSocials = siteData?.headerSocials?.map((i) =>
+    <li key={i.id}><MyLink obj={i} addClasses="nav-link" /></li>
+  )
+  let footerSocials = siteData?.footerNavigation?.map((i) =>
+    <li key={i.id}><MyLink obj={i} addClasses="nav-link" /></li>
+  )
+
   return (
     <header id="mainnav">
       <Navbar variant="dark" expand="lg">
@@ -44,6 +51,9 @@ const Header = ({ siteData, altPage }) => {
           </Navbar.Brand>
           <div className="desktop-nav">
             {headerNav}
+            <ul class="nav navbar-socials">
+              {headerSocials}
+            </ul>
             <div className="navbar-lang">
               <Link to={altPage} className="btn btn-outline-light">{siteData?.languageToggleText}</Link>
             </div>
@@ -60,6 +70,9 @@ const Header = ({ siteData, altPage }) => {
               <div className="navbar-lang">
                 <Link to={altPage} className="btn btn-outline-primary">{siteData?.languageToggleText}</Link>
               </div>
+              <ul class="nav navbar-socials">
+                {footerSocials}
+              </ul>
             </Offcanvas.Body>
           </Offcanvas>
         </Container>
@@ -82,6 +95,12 @@ export const query = graphql`
     }
     languageToggleText
     headerNavigation {
+      ... MyLink
+    }
+    headerSocials {
+      ... MyLink
+    }
+    footerNavigation {
       ... MyLink
     }
   }

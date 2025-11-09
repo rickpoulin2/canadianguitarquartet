@@ -106,6 +106,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     headerNavigation: [ContentfulLink] @link(from: "headerNavigation___NODE")
+    headerSocials: [ContentfulLink] @link(from: "headerSocials___NODE")
     footerNavigation: [ContentfulLink] @link(from: "footerNavigation___NODE")
     siteIcon: ContentfulAsset @link(from: "siteIcon___NODE")
     siteLogo: ContentfulAsset @link(from: "siteLogo___NODE")
