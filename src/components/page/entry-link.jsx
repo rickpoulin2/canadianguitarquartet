@@ -35,7 +35,7 @@ const getEventAnchor = (event) => {
     if (event == null) {
         return ""
     }
-    return event.eventName.toLowerCase().replace(/\s/g, "-") + '--' + event.eventDate
+    return event.eventName.toLowerCase().normalize("NFD").replace(/[\s']/g, "-").replace(/[^\-a-z0-9]/g, "") + '--' + event.eventDate
 }
 
 export { getEventAnchor }

@@ -27,7 +27,7 @@ const EventCard = ({ obj, hide, triggerAs = 'div', sidecar, onClick, controls, e
   }
   const location = obj.eventLocation ? <p className="location">{obj.eventLocation}</p> : ""
 
-  let side = <div></div>
+  let side = ""
   if (sidecar === 'tickets' && obj.ticketsLink != null) {
     const ticketsLabel = obj.node_locale === 'fr' ? 'Billets' : 'Tickets'
     side =
